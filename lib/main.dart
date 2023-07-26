@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:research_and_development/feature/navigation/NavigationHome.dart';
+import 'package:research_and_development/feature/navigation/navigation_simple.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   /* Route? _onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -61,6 +61,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto Mono',
       ),
       home: const MainMenu(),
+      debugShowCheckedModeBanner: false,
+      debugShowMaterialGrid: false,
     );
   }
 }
@@ -74,6 +76,7 @@ class MainMenu extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        elevation: 16.0,
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -88,73 +91,55 @@ class MainMenu extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        scrollDirection: Axis.vertical,
+        padding: EdgeInsets.all(8.0),
         children: [
-          Container(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: () {
-                print('main_menu: navigation');
-                // Navigator.pushNamed(context, '/navigation');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const NavigationContent(),
-                  ),
-                );
-              },
-              child: const Text(
-                'navigation',
-                semanticsLabel: 'navigation',
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: () {
-                print('main_menu: data_list');
-              },
-              child: const Text(
-                'data_list',
-                semanticsLabel: 'data list',
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: () {
-                print('main_menu: networking');
-              },
-              child: const Text(
-                'networking',
-                semanticsLabel: 'networking',
-              ),
-            ),
-          ),
-          for (var idx = 0; idx < 21; idx++)
-            Column(
-              children: [
-                const SizedBox(height: 16.0),
-                Container(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'feature #${idx + 1} tba!',
+          Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  print('main_menu: navigation');
+                  // Navigator.pushNamed(context, '/navigation');
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const NavigationApp(),
                     ),
+                    (route) => false,
+                  );
+                },
+                child: const Text(
+                  'navigation',
+                  semanticsLabel: 'navigation',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  print('main_menu: data_list');
+                },
+                child: const Text(
+                  'data_list',
+                  semanticsLabel: 'data list',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  print('main_menu: networking');
+                },
+                child: const Text(
+                  'networking',
+                  semanticsLabel: 'networking',
+                ),
+              ),
+              for (var idx = 0; idx < 21; idx++)
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    'feature #${idx + 1} tba!',
                   ),
                 ),
-              ],
-            ),
+            ],
+          )
         ],
       ),
     );
