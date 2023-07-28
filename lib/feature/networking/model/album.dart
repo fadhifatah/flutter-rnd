@@ -16,4 +16,25 @@ class Album {
       title: json['title'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'userId': userId,
+      'id': id,
+      'title': title,
+    };
+  }
+}
+
+class ListAlbum {
+  final List<Album> dataList;
+
+  const ListAlbum({required this.dataList});
+
+  factory ListAlbum.fromJson(List<dynamic> json) {
+    return ListAlbum(
+        dataList: json.map((data) => Album.fromJson(data)).toList());
+  }
+
+  List<Album> toJson() => dataList;
 }
