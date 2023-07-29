@@ -25,6 +25,8 @@ Future<Album> getAlbum(int id) async {
 }
 
 Future<Post> createPost(Post post) async {
+  print('createPost internal ${jsonEncode(post.toJson())}');
+
   final response = await http.post(
     Uri.parse('${Config.baseUrl}posts'),
     body: jsonEncode(post.toJson()),
@@ -33,7 +35,7 @@ Future<Post> createPost(Post post) async {
     },
   );
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
     return Post.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to get post datalist');

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:research_and_development/feature/navigation/navigation_simple.dart';
-import 'package:research_and_development/feature/networking/fetch_data.dart';
+import 'package:research_and_development/feature/networking/jsonplaceholder.dart';
 
 void main() {
   runApp(const MainApp());
@@ -138,7 +138,7 @@ class MainMenu extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FetchAlbum(),
+                        builder: (context) => JsonPlaceholder(),
                       ));
                 },
                 child: const Text(
