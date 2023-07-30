@@ -125,16 +125,23 @@ class MainMenu extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  print('main_menu: data_list');
+                  print('main_menu: navigation_named');
+                  // Navigator.pushNamed(context, '/navigation');
+                  /* Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const NavigationApp(),
+                    ),
+                    (route) => false,
+                  ); */
                 },
                 child: const Text(
-                  'data_list',
-                  semanticsLabel: 'data list',
+                  'navigation_named',
+                  semanticsLabel: 'navigation named',
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
-                  print('main_menu: networking');
+                  print('main_menu: jsonplaceholder');
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -142,8 +149,35 @@ class MainMenu extends StatelessWidget {
                       ));
                 },
                 child: const Text(
-                  'networking',
-                  semanticsLabel: 'networking',
+                  'jsonplaceholder',
+                  semanticsLabel: 'json placeholder',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  print('main_menu: pexels');
+                },
+                child: const Text(
+                  'pexels',
+                  semanticsLabel: 'pexels',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  print('main_menu: retrofit');
+                },
+                child: const Text(
+                  'retrofit',
+                  semanticsLabel: 'retrofit',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  print('main_menu: data_list');
+                },
+                child: const Text(
+                  'data_list',
+                  semanticsLabel: 'data list',
                 ),
               ),
               for (var idx = 0; idx < 21; idx++)

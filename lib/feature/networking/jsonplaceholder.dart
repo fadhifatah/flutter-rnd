@@ -5,18 +5,30 @@ import 'model/post.dart';
 import 'model/user.dart';
 import 'remote/manager.dart';
 
+/// Example of simple networking using https://jsonplaceholder.typicode.com/.
+/// This example is using basic networking using [http] package.
+/// This feature has [model] and [remote] package. 
+/// 
+/// [model] is a kind of dto to store each of object properties, it also use 
+/// basic serialization and deserialization.
+/// 
+/// [remote] contains data manager that store call request and config utility
+/// to support it.
 class JsonPlaceholder extends StatefulWidget {
   @override
   State<JsonPlaceholder> createState() => _JsonPlaceholderState();
 }
 
 class _JsonPlaceholderState extends State<JsonPlaceholder> {
+  // https://docs.flutter.dev/cookbook/forms/retrieve-input
   final _titleController = TextEditingController();
   final _bodyController = TextEditingController();
   final _albumId = 1;
 
+  // https://docs.flutter.dev/cookbook/networking/fetch-data
   late Future<Album> _fetchedAlbum;
 
+  // https://docs.flutter.dev/cookbook/networking/send-data
   Future<ListUser>? _userDataList;
   Future<Post>? _createPost;
 
@@ -33,6 +45,9 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
     _fetchedAlbum = getAlbum(_albumId);
   }
 
+  /// FutureBuilder observe future object to get the snapshot that contains
+  /// data of response body. It must returns Widget which correspond with
+  /// snapshot and/or any response state available.
   Widget _buildCreatePost(BuildContext rootContext) {
     return FutureBuilder(
       builder: (context, snapshot) {
@@ -58,7 +73,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  post.title,
+                  post.title.isEmpty ? 'EMPTY' : post.title,
                   style: Theme.of(rootContext)
                       .textTheme
                       .bodyLarge!
@@ -69,7 +84,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  '"${post.body}"',
+                  post.body.isEmpty ? 'EMPTY' : '"${post.body}"',
                   style: Theme.of(rootContext)
                       .textTheme
                       .bodyLarge!
@@ -130,6 +145,8 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
     );
   }
 
+  /// Function to generate Create Post example. It contains two TextField and a
+  /// ElevatedButton to send post request and display a Dialog.
   Widget _fieldCreatePost() {
     return Container(
       color: Colors.purple.shade100,
@@ -213,6 +230,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
     );
   }
 
+  /// FutureBuilder to handle [_userDataList]
   Widget _buildUserDataList() {
     return Container(
       color: Colors.lightBlue,
@@ -287,7 +305,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
                 ),
               ),
             );
-          } */
+          } */ // Experiment with snapshot properties and possible state
 
           return Padding(
             padding: EdgeInsets.all(16.0),
@@ -298,6 +316,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
     );
   }
 
+  /// Function to generate action button to trigger [_userDataList] when pressed
   Widget _buttonUserDataList() {
     return Container(
       color: Colors.lightBlue,
@@ -315,6 +334,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
     );
   }
 
+  /// FutureBuilder to handle [_fetchedAlbum]. This is a basic lesson
   Widget _buildFetchAlbum() {
     return Container(
       color: Colors.amber,
