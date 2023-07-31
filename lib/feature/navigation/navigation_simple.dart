@@ -72,7 +72,7 @@ This simulation, currently, has an animation issue. It just has been patched by 
                   // Navigator.of(context/* , rootNavigator: true */).pop(
                   //   MaterialPageRoute(builder: (context) => const MainMenu()),
                   // );
-                  Navigator.of(context).pushAndRemoveUntil(
+                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => MainApp()),
                     (route) => false,
                   );

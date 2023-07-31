@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:research_and_development/feature/navigation/navigation_simple.dart';
 import 'package:research_and_development/feature/networking/jsonplaceholder.dart';
+import 'package:research_and_development/feature/networking/pexels.dart';
 
 void main() {
   runApp(const MainApp());
@@ -111,7 +112,7 @@ class MainMenu extends StatelessWidget {
                 onPressed: () {
                   print('main_menu: navigation');
                   // Navigator.pushNamed(context, '/navigation');
-                  Navigator.of(context).pushAndRemoveUntil(
+                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const NavigationApp(),
                     ),
@@ -156,6 +157,11 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: pexels');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Pexels(),
+                      ));
                 },
                 child: const Text(
                   'pexels',

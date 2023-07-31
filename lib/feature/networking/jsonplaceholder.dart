@@ -48,7 +48,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
   /// FutureBuilder observe future object to get the snapshot that contains
   /// data of response body. It must returns Widget which correspond with
   /// snapshot and/or any response state available.
-  Widget _buildCreatePost(BuildContext rootContext) {
+  Widget _buildCreatePost(BuildContext dialogContext) {
     return FutureBuilder(
       builder: (context, snapshot) {
         print('_buildCreatePost connection_state: ${snapshot.connectionState}');
@@ -74,7 +74,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
                 alignment: Alignment.center,
                 child: Text(
                   post.title.isEmpty ? 'EMPTY' : post.title,
-                  style: Theme.of(rootContext)
+                  style: Theme.of(dialogContext)
                       .textTheme
                       .bodyLarge!
                       .copyWith(fontWeight: FontWeight.bold),
@@ -85,7 +85,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
                 alignment: Alignment.center,
                 child: Text(
                   post.body.isEmpty ? 'EMPTY' : '"${post.body}"',
-                  style: Theme.of(rootContext)
+                  style: Theme.of(dialogContext)
                       .textTheme
                       .bodyLarge!
                       .copyWith(fontStyle: FontStyle.italic),
@@ -95,7 +95,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(rootContext).pop();
+                    Navigator.of(dialogContext).pop();
                   },
                   child: Text('Dismiss'),
                 ),
