@@ -64,7 +64,7 @@ Future<void> getCuratedPexels(
   PagingController<int, Photo> pagingController,
 ) async {
   try {
-    await Future.delayed(Duration(seconds: 5));
+    print('getCuratedPexels page: $pageIndex');
 
     final response = await http.get(
       Uri.parse(
@@ -83,7 +83,47 @@ Future<void> getCuratedPexels(
     } else {
       pagingController.appendPage(photoList, pageIndex + 1);
     }
-  } on Exception catch (e) {
-    pagingController.error = e;
+  } on Exception catch (error) {
+    pagingController.error = error;
+  } on Error {
+    pagingController.error = Exception('Error occured!');
+  }
+}
+
+Future<void> getSearchPexels(
+  String query,
+  int pageIndex,
+  int pageItemSize,
+  PagingController<int, Photo> pagingController,
+) async {
+  try {
+    print('getSearchPexels query: $query page: $pageIndex');
+
+    final response = await http.get(
+      Uri.parse(
+          '${Config.pexelsUrl}search?query=$query&page=$pageIndex&per_page=$pageItemSize'),
+      headers: {
+        HttpHeaders.authorizationHeader: Config.pexelsKey,
+      },
+    );
+
+    print('getSearchPexels statusCode: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      final photoResponse = PhotoResponse.fromJson(jsonDecode(response.body));
+      final photoList = photoResponse.photos;
+      final isLastPage = photoList.length < photoResponse.perPage;
+
+      if (isLastPage) {
+        pagingController.appendLastPage(photoList);
+      } else {
+        pagingController.appendPage(photoList, pageIndex + 1);
+      }
+    } else if (response.statusCode == 400) {
+      pagingController.appendLastPage([]);
+    }
+  } on Exception catch (error) {
+    pagingController.error = error;
+  } on Error {
+    pagingController.error = Exception('Error occured!');
   }
 }
