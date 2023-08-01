@@ -1,3 +1,6 @@
+.fvm/flutter_sdk
+.vscode/
+
 # Miscellaneous
 *.class
 *.log
