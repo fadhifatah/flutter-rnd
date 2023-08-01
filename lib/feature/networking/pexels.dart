@@ -300,7 +300,7 @@ class _PexelsState extends State<Pexels> {
                             _searchController.clear();
                             _searchPageController.refresh();
                           },
-                          child: Text('Retry'),
+                          child: Text('Reset'),
                         ),
                       ],
                     ),

@@ -103,7 +103,7 @@ class PhotoResponse {
     int page;
     int perPage;
     List<Photo> photos;
-    String nextPage;
+    String? nextPage;
 
     PhotoResponse({
         required this.totalResults,
