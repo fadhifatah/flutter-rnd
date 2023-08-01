@@ -3,27 +3,38 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:research_and_development/feature/networking/model/photo.dart';
 import 'package:research_and_development/feature/networking/remote/repository.dart';
 
+/// Based on existed available REST API in Photos category from Pexels
+/// https://www.pexels.com/api/documentation/#photos
 enum PexelsMenu { curated, search }
 
+/// Display a collection of Photos. It has infinite scroll with pagination.
+/// https://pub.dev/packages/infinite_scroll_pagination
+///
+/// Using CustomScrollView with Sliver to handling rich animation and transition.
 class Pexels extends StatefulWidget {
   @override
   State<Pexels> createState() => _PexelsState();
 }
 
 class _PexelsState extends State<Pexels> {
+  // Defined PagingController, both for curated and search page
   final _curatedPageController = PagingController<int, Photo>(firstPageKey: 1);
   final _searchPageController = PagingController<int, Photo>(firstPageKey: 1);
+  // Also a TextEditingController for search bar :)
   final _searchController = TextEditingController();
 
+  // Some useful flags or states(?)
   var _selected = PexelsMenu.curated;
   var _currentSearch = '';
 
+  // PopupMenuButton listener
   void _onMenuSelected(PexelsMenu value) {
     setState(() {
       _selected = value;
     });
   }
 
+  // Whether to show search bar based on _selected
   PreferredSize? _buildSearchBar() {
     return (_selected != PexelsMenu.search)
         ? null
@@ -55,6 +66,7 @@ class _PexelsState extends State<Pexels> {
           );
   }
 
+  // PagedSliverGrid item which is used both for curated and search page
   Widget _buildItem(Photo photo) {
     return GestureDetector(
       onTap: () {
@@ -73,6 +85,7 @@ class _PexelsState extends State<Pexels> {
               child: CircularProgressIndicator(),
             ),
             Positioned.fill(
+              // A tasty Hero implementation :p
               child: Hero(
                 tag: photo,
                 child: Image.network(
@@ -107,10 +120,14 @@ class _PexelsState extends State<Pexels> {
     );
   }
 
+  /// StatefulWidget will intiate these first. It sets up a PagingController
+  /// listener: [_searchPageController] and [_curatedPageController]
   @override
   void initState() {
     super.initState();
     _curatedPageController.addPageRequestListener((pageKey) {
+      // Still using old [http] package module. 
+      // For next project, will be using Dio and/or Retrofit with MVVM :))
       getCuratedPexels(pageKey, 11, _curatedPageController);
     });
 
@@ -124,6 +141,7 @@ class _PexelsState extends State<Pexels> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constrains) {
       return Scaffold(
+        // Try a new CustomScrollView. Must using Sliver object!
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -138,6 +156,8 @@ class _PexelsState extends State<Pexels> {
                 ],
               ),
               actions: [
+                // This Widget is automatically converted into Icons.more_vert
+                // inside AppBar actions.
                 PopupMenuButton(
                   onSelected: _onMenuSelected,
                   itemBuilder: (context) => PexelsMenu.values
@@ -300,6 +320,7 @@ class _PexelsState extends State<Pexels> {
     });
   }
 
+  /// For every controller that exist in this StatefulWidget must be disposed!
   @override
   void dispose() {
     _curatedPageController.dispose();
@@ -309,6 +330,7 @@ class _PexelsState extends State<Pexels> {
   }
 }
 
+/// Simple Hero application when PagedSliverGrid item clicked (tapped)
 class PexelsDetail extends StatelessWidget {
   final Photo photo;
 
