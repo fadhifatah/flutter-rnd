@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:research_and_development/feature/networking/model/photo.dart';
 import '../model/album.dart';
 import '../model/post.dart';
 import '../model/user.dart';
-import 'config.dart';
+import 'remote.dart';
 
 Future<Album> getAlbum(int id) async {
   await Future.delayed(Duration(seconds: 5));
@@ -53,5 +55,35 @@ Future<ListUser> getListUser() async {
     return ListUser.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to get user data list');
+  }
+}
+
+Future<void> getCuratedPexels(
+  int pageIndex,
+  int pageItemSize,
+  PagingController<int, Photo> pagingController,
+) async {
+  try {
+    await Future.delayed(Duration(seconds: 5));
+
+    final response = await http.get(
+      Uri.parse(
+          '${Config.pexelsUrl}curated?page=$pageIndex&per_page=$pageItemSize'),
+      headers: {
+        HttpHeaders.authorizationHeader: Config.pexelsKey,
+      },
+    );
+
+    final photoResponse = PhotoResponse.fromJson(jsonDecode(response.body));
+    final photoList = photoResponse.photos;
+    final isLastPage = photoList.length < photoResponse.perPage;
+
+    if (isLastPage) {
+      pagingController.appendLastPage(photoList);
+    } else {
+      pagingController.appendPage(photoList, pageIndex + 1);
+    }
+  } on Exception catch (e) {
+    pagingController.error = e;
   }
 }

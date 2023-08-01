@@ -3,7 +3,7 @@ import 'package:research_and_development/util/extensions.dart';
 import 'model/album.dart';
 import 'model/post.dart';
 import 'model/user.dart';
-import 'remote/manager.dart';
+import 'remote/repository.dart';
 
 /// Example of simple networking using https://jsonplaceholder.typicode.com/.
 /// This example is using basic networking using [http] package.
