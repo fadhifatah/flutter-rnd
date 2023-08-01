@@ -15,7 +15,7 @@ class _PexelsState extends State<Pexels> {
   final _searchPageController = PagingController<int, Photo>(firstPageKey: 1);
   final _searchController = TextEditingController();
 
-  var _selected = PexelsMenu.search;
+  var _selected = PexelsMenu.curated;
   var _currentSearch = '';
 
   void _onMenuSelected(PexelsMenu value) {
@@ -40,6 +40,7 @@ class _PexelsState extends State<Pexels> {
                       border: InputBorder.none,
                       hintText: 'What to search?',
                     ),
+                    textInputAction: TextInputAction.search,
                     onSubmitted: (value) {
                       print('search bar submit');
                       if (_currentSearch != value) {
@@ -55,40 +56,53 @@ class _PexelsState extends State<Pexels> {
   }
 
   Widget _buildItem(Photo photo) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16.0),
-      child: Stack(
-        children: [
-          Center(
-            child: CircularProgressIndicator(),
-          ),
-          Positioned.fill(
-            child: Image.network(
-              photo.src.portrait,
-              fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        print('onTap item: ${photo.url}');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PexelsDetail(photo: photo),
+            ));
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16.0),
+        child: Stack(
+          children: [
+            Center(
+              child: CircularProgressIndicator(),
             ),
-          ),
-          if (photo.alt.isNotEmpty)
-            Positioned(
-              left: 8.0,
-              right: 8.0,
-              bottom: 8.0,
-              child: Wrap(
-                children: [
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        photo.alt,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+            Positioned.fill(
+              child: Hero(
+                tag: photo,
+                child: Image.network(
+                  photo.src.portrait,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            if (photo.alt.isNotEmpty)
+              Positioned(
+                left: 8.0,
+                right: 8.0,
+                bottom: 8.0,
+                child: Wrap(
+                  children: [
+                    Card(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          photo.alt,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-        ],
+                  ],
+                ),
+              )
+          ],
+        ),
       ),
     );
   }
@@ -292,5 +306,43 @@ class _PexelsState extends State<Pexels> {
     _searchPageController.dispose();
     _searchController.dispose();
     super.dispose();
+  }
+}
+
+class PexelsDetail extends StatelessWidget {
+  final Photo photo;
+
+  const PexelsDetail({super.key, required this.photo});
+
+  @override
+  Widget build(BuildContext context) {
+    var avgColor =
+        (photo.avgColor.isEmpty) ? 'FFFFFFFF' : photo.avgColor.substring(1);
+    var fixAvgColor = (avgColor.length < 8) ? 'FF$avgColor' : avgColor;
+    var hexColor = int.parse(fixAvgColor, radix: 16);
+
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () {
+          print('onTap item back');
+          Navigator.pop(context);
+        },
+        child: Container(
+          color: Color(hexColor),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Hero(
+                tag: photo,
+                child: Image.network(
+                  photo.src.portrait,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

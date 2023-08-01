@@ -95,7 +95,7 @@ class _JsonPlaceholderState extends State<JsonPlaceholder> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(dialogContext).pop();
+                    Navigator.pop(dialogContext);
                   },
                   child: Text('Dismiss'),
                 ),
