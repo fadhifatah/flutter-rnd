@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:research_and_development/feature/navigation/styles.dart';
 import '../../main.dart';
 
 class NavigationApp extends StatelessWidget {
@@ -6,21 +7,16 @@ class NavigationApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ColorScheme.fromSeed(seedColor: Colors.deepOrange);
     return MaterialApp(
       title: 'Flutter Navigation',
       theme: ThemeData(
-        colorScheme: colorScheme,
+        colorScheme: Styles.colorScheme,
         useMaterial3: true,
         appBarTheme: AppBarTheme(
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
+          backgroundColor: Styles.colorScheme.primary,
+          foregroundColor: Styles.colorScheme.onPrimary,
           elevation: 16.0,
-          titleTextStyle: TextStyle(
-            fontFamily: 'Fragment Mono',
-            fontSize: 22.0,
-            fontWeight: FontWeight.w400,
-          ),
+          titleTextStyle: Styles.titleTextStyle,
         ),
         fontFamily: 'Roboto Mono',
       ),
