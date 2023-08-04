@@ -23,7 +23,9 @@ class Navigation2App extends StatelessWidget {
         if (settings.name == Routes.pageA) {
           final args = settings.arguments as String? ?? 'EMPTY';
 
-          return MaterialPageRoute(builder: (context) => PageA(args: args),)
+          return MaterialPageRoute(
+            builder: (context) => PageA(args: args),
+          );
         }
       },
       routes: {
@@ -142,7 +144,6 @@ class PageA extends StatelessWidget {
   }
 }
 
-
 class PageB extends StatelessWidget {
   PageB({super.key, required this.args});
   final String args;
@@ -192,7 +193,6 @@ class PageB extends StatelessWidget {
     );
   }
 }
-
 
 class PageC extends StatelessWidget {
   PageC({super.key, required String args});
