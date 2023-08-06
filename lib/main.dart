@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:research_and_development/feature/navigation/navigation_simple.dart';
+import 'package:research_and_development/feature/navigation/navigation.dart';
+import 'package:research_and_development/feature/navigation/navigation2.dart';
 import 'package:research_and_development/feature/networking/jsonplaceholder.dart';
 import 'package:research_and_development/feature/networking/pexels.dart';
 
@@ -40,7 +41,7 @@ class MainApp extends StatelessWidget {
     final colorScheme = ColorScheme.fromSeed(seedColor: Colors.teal);
 
     return MaterialApp(
-      title: 'Flutter RnD',
+      title: 'Flutter Research and Development',
       darkTheme: ThemeData.dark(
         useMaterial3: true,
       ),
@@ -126,18 +127,17 @@ class MainMenu extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  print('main_menu: navigation_named');
-                  // Navigator.pushNamed(context, '/navigation');
-                  /* Navigator.of(context).pushAndRemoveUntil(
+                  print('main_menu: navigation2');
+                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(
-                      builder: (context) => const NavigationApp(),
+                      builder: (context) => const Navigation2App(),
                     ),
                     (route) => false,
-                  ); */
+                  );
                 },
                 child: const Text(
-                  'navigation_named',
-                  semanticsLabel: 'navigation named',
+                  'navigation2',
+                  semanticsLabel: 'navigation two',
                 ),
               ),
               ElevatedButton(
