@@ -20,14 +20,18 @@ class Navigation2App extends StatelessWidget {
         ),
       ),
       onGenerateRoute: (settings) {
-        print('onGenerateRoute');
         if (settings.name == Routes.pageA) {
-          print('settings.name == page-a');
-          final args =
-              settings.arguments as String? ?? 'EMPTY from \'onGenerateRoute\'';
+          final args = settings.arguments as Map<String, dynamic>? ??
+              <String, dynamic>{};
 
           return MaterialPageRoute(
             builder: (context) => PageA(args: args),
+            // https://stackoverflow.com/a/56218929/18139177
+            // ignore: prefer_const_constructors
+            settings: RouteSettings(
+              name: Routes.pageA,
+              arguments: <String, dynamic>{},
+            ),
           );
         }
 
@@ -84,7 +88,9 @@ class Navigation2Main extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Routes.pageA,
-                  arguments: _inputController.text,
+                  arguments: {
+                    Arguments.argument: _inputController.text,
+                  },
                 );
               },
               child: const Text('Send to A'),
@@ -96,7 +102,9 @@ class Navigation2Main extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Routes.pageB,
-                  arguments: _inputController.text,
+                  arguments: {
+                    Arguments.argument: _inputController.text,
+                  },
                 );
               },
               child: const Text('Send to B'),
@@ -105,10 +113,17 @@ class Navigation2Main extends StatelessWidget {
           Align(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(
+                Navigator.push(
                   context,
-                  Routes.pageC,
-                  arguments: _inputController.text,
+                  MaterialPageRoute(
+                    builder: (context) => PageC(),
+                    settings: RouteSettings(
+                      name: Routes.pageC,
+                      arguments: {
+                        Arguments.argument: _inputController.text,
+                      },
+                    ),
+                  ),
                 );
               },
               child: const Text('Send to C'),
@@ -139,7 +154,7 @@ class Navigation2Main extends StatelessWidget {
 }
 
 class PageA extends StatefulWidget {
-  final String args;
+  final Map<String, dynamic> args;
   PageA({super.key, required this.args});
 
   @override
@@ -151,13 +166,40 @@ class _PageAState extends State<PageA> {
 
   var result = '';
 
+  Future<void> _dViaBForResult() async {
+    // https://stackoverflow.com/a/56218929/18139177
+    await Navigator.pushNamed(
+      context,
+      Routes.pageB,
+      arguments: {
+        Arguments.argument: _inputController.text,
+      },
+    ).then((_) {
+      final resultFromD =
+          ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
+              <String, dynamic>{};
+
+      setState(() {
+        result = resultFromD[Arguments.result] ?? 'EMPTY';
+      });
+    });
+
+    // When a BuildContext is used from a StatefulWidget, the mounted property
+    // must be checked after an asynchronous gap.
+    if (!mounted) {
+      return;
+    }
+  }
+
   Future<void> _cForResult() async {
     final resultFromC = await Navigator.pushNamed(
           context,
           Routes.pageC,
-          arguments: _inputController.text,
-        ) as String? ??
-        'EMPTY';
+          arguments: {
+            Arguments.argument: _inputController.text,
+          },
+        ) as Map<String, dynamic>? ??
+        <String, dynamic>{};
 
     // When a BuildContext is used from a StatefulWidget, the mounted property
     // must be checked after an asynchronous gap.
@@ -166,20 +208,19 @@ class _PageAState extends State<PageA> {
     }
 
     setState(() {
-      result = resultFromC;
+      result = resultFromC[Arguments.result] ?? 'EMPTY';
     });
   }
 
   @override
   void initState() {
-    _inputController = TextEditingController(text: widget.args);
+    _inputController =
+        TextEditingController(text: widget.args[Arguments.argument]);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _inputController.text = widget.args;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('A'),
@@ -194,7 +235,9 @@ class _PageAState extends State<PageA> {
                 Navigator.pushNamed(
                   context,
                   Routes.pageB,
-                  arguments: _inputController.text,
+                  arguments: {
+                    Arguments.argument: _inputController.text,
+                  },
                 );
               },
               child: const Text('Send to B'),
@@ -204,10 +247,8 @@ class _PageAState extends State<PageA> {
               child: const Text('Get result from C'),
             ),
             ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.pageD);
-              },
-              child: const Text('Go to D'),
+              onPressed: () => _dViaBForResult(),
+              child: const Text('Expect result from D via B'),
             ),
             TextField(
               controller: _inputController,
@@ -234,9 +275,10 @@ class PageB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final argument = ModalRoute.of(context)?.settings.arguments as String? ??
-        'EMPTY from \'ModalRoute\'';
-    _inputController.text = argument;
+    final argument =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
+            <String, dynamic>{};
+    _inputController.text = argument[Arguments.argument];
 
     return Scaffold(
       appBar: AppBar(
@@ -249,10 +291,17 @@ class PageB extends StatelessWidget {
           Align(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(
+                Navigator.push(
                   context,
-                  Routes.pageC,
-                  arguments: _inputController.text,
+                  MaterialPageRoute(
+                    builder: (context) => PageC(),
+                    settings: RouteSettings(
+                      name: Routes.pageC,
+                      arguments: {
+                        Arguments.argument: _inputController.text,
+                      },
+                    ),
+                  ),
                 );
               },
               child: const Text('Send to C'),
@@ -286,6 +335,11 @@ class PageC extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final argument =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
+            <String, dynamic>{};
+    _inputController.text = argument[Arguments.argument];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('C'),
@@ -297,17 +351,14 @@ class PageC extends StatelessWidget {
           Align(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pop(context, _inputController.text);
+                Navigator.pop(
+                  context,
+                  {
+                    Arguments.result: _inputController.text,
+                  },
+                );
               },
               child: const Text('Send back'),
-            ),
-          ),
-          Align(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context, _inputController.text);
-              },
-              child: const Text('Send back (until)'),
             ),
           ),
           Align(
@@ -324,10 +375,9 @@ class PageC extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Routes.pageD,
-                  arguments: _inputController.text,
                 );
               },
-              child: const Text('Send to D'),
+              child: const Text('Go to D'),
             ),
           ),
           TextField(
@@ -360,9 +410,32 @@ class PageD extends StatelessWidget {
           Align(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pop(context, _inputController.text);
+                Navigator.pop(
+                  context,
+                  {
+                    Arguments.result: _inputController.text,
+                  },
+                );
               },
               child: const Text('Send back'),
+            ),
+          ),
+          Align(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.popUntil(context, (route) {
+                  if (route.settings.name == Routes.pageA) {
+                    (route.settings.arguments
+                            as Map<String, dynamic>?)?[Arguments.result] =
+                        _inputController.text;
+                    return true;
+                  } else {
+                    // If not, back to Navigation2
+                    return route.settings.name == Routes.root;
+                  }
+                });
+              },
+              child: const Text('Send back to A'),
             ),
           ),
           Align(

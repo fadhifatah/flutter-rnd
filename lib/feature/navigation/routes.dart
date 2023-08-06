@@ -7,3 +7,8 @@ abstract class Routes {
   static const String pageC = 'page-c';
   static const String pageD = 'page-d';
 }
+
+abstract class Arguments {
+  static const String argument = 'argument';
+  static const String result = 'result';
+}
