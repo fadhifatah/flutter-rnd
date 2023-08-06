@@ -173,7 +173,7 @@ A simple navigation with action back at App Bar to Detail page.''',
               SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
+                  /* Navigator.pushAndRemoveUntil(
                     context,
                     // MaterialPageRoute(builder: (context) => NavigationContent(),)
                     PageRouteBuilder(
@@ -201,7 +201,13 @@ A simple navigation with action back at App Bar to Detail page.''',
                       },
                     ),
                     (route) => false,
-                  );
+                  ); */
+
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                  // Navigator.popUntil(
+                  //     context,
+                  //     (route) =>
+                  //         route.settings.name == Navigator.defaultRouteName);
                 },
                 child: Text('Go Back to Navigation'),
               ),
