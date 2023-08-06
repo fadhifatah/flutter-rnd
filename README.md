@@ -1,6 +1,6 @@
 # Research and Development
 
-A new Flutter project.
+A new Flutter project. This project is created to test, try and error, run and build any Flutter possibilities. This is also a good place to exercise what has been learnt and/or what will be developed before it published. Proper to experiment things. Much like cookbook, codelab and demo combined as one.
 
 ## Getting Started
 
@@ -14,3 +14,15 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Main Menu
+
+Display all available Research and Development menu as a button in scrollable [Wrap](https://api.flutter.dev/flutter/widgets/Wrap-class.html)-ed widget. This app use custom fonts: `Fragment Mono` and `Roboto Mono`. All menus may changed at further development.
+
+<img src="assets/github/showcase.gif" width="360"/>
+
+Main Menu contains several features example, such as:
+| Name | Description |
+|-|-|
+| **navigation** | A basic navigation in Flutter. New app will be opened! |
+| **navigation2** | A advanced navigation with handling various routes possibilities. A working deeplink to be expected as well. New app will be opened! |

@@ -3,6 +3,15 @@ import 'package:research_and_development/feature/navigation/routes.dart';
 import 'package:research_and_development/feature/navigation/styles.dart';
 import 'package:research_and_development/main.dart';
 
+/// This app is used to display Flutter navigation capabilities. There will be
+/// five pages: Navigation2, A, B, C and D. Each navigation from/to will access
+/// TextField input to be passed.
+///
+/// For example: At Navigation2 you may type something as argument in TextField.
+/// When you click "Send to A", the value will be passed.
+///
+/// Other example: At C, you may passed down the value to be passed down when
+/// "Send back" is clicked.
 class Navigation2App extends StatelessWidget {
   const Navigation2App({super.key});
 
@@ -20,13 +29,18 @@ class Navigation2App extends StatelessWidget {
         ),
       ),
       onGenerateRoute: (settings) {
+        // This is an example of passing argument using onGenerateRoute
+        // You must defien and register which page that may receive an argument.
+        // In this case, it is [Routes.pageA]
         if (settings.name == Routes.pageA) {
           final args = settings.arguments as Map<String, dynamic>? ??
               <String, dynamic>{};
 
           return MaterialPageRoute(
             builder: (context) => PageA(args: args),
-            // https://stackoverflow.com/a/56218929/18139177
+            // This extra data (settings) used to reserve possible argument at
+            // this page based on https://stackoverflow.com/a/56218929/18139177
+            //
             // ignore: prefer_const_constructors
             settings: RouteSettings(
               name: Routes.pageA,
@@ -38,19 +52,21 @@ class Navigation2App extends StatelessWidget {
         return null;
       },
       routes: {
+        // This is an example of normal routes that commonly used.
         Routes.root: (context) => Navigation2Main(),
-        // Routes.pageA: (context) => PageA(args: 'EMPTY from \'routes\''),
+        // Routes.pageA: (context) => PageA(args: {}),
         Routes.pageB: (context) => PageB(),
         Routes.pageC: (context) => PageC(),
         Routes.pageD: (context) => PageD(),
       },
-      initialRoute: Routes.root,
+      initialRoute: Routes.root, // Must declared
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
     );
   }
 }
 
+/// The main content to access A, B, C and D
 class Navigation2Main extends StatelessWidget {
   Navigation2Main({super.key});
 
@@ -68,8 +84,9 @@ class Navigation2Main extends StatelessWidget {
         shrinkWrap: true,
         children: [
           Align(
-            child: ElevatedButton.icon(
+            child: IconButton(
               onPressed: () {
+                // Back to Main Menu a.k.a start new Main Menu app
                 print('Go Back to Main Menu');
                 Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                   MaterialPageRoute(
@@ -79,7 +96,6 @@ class Navigation2Main extends StatelessWidget {
                 );
               },
               icon: const Icon(Icons.home),
-              label: const Text('Main Menu'),
             ),
           ),
           Align(
@@ -140,6 +156,7 @@ class Navigation2Main extends StatelessWidget {
               child: const Text('Go to D'),
             ),
           ),
+          // Where argument take places
           TextField(
             controller: _inputController,
             decoration: const InputDecoration(
@@ -153,6 +170,15 @@ class Navigation2Main extends StatelessWidget {
   }
 }
 
+/// This page contains result callback from two scenarios:
+/// 1. Get result from C: At C, you may input text in TextField then it will be
+/// passed down to A.
+/// 
+/// 2. Expect result from D via B: At D (in the end), you may input text in
+/// TextField then it will be passed down to A. This scenario simulate when A
+/// needs data from other page further which is D. In this case, D will be
+/// located after B or even C. So, when jumped from D to A, make sure the data 
+/// still exist.
 class PageA extends StatefulWidget {
   final Map<String, dynamic> args;
   PageA({super.key, required this.args});
@@ -191,6 +217,7 @@ class _PageAState extends State<PageA> {
     }
   }
 
+  // A simple result callback: go to that page and pass down the data as result.
   Future<void> _cForResult() async {
     final resultFromC = await Navigator.pushNamed(
           context,
@@ -214,6 +241,7 @@ class _PageAState extends State<PageA> {
 
   @override
   void initState() {
+    // We may read argument to be put in other properties, instantly.
     _inputController =
         TextEditingController(text: widget.args[Arguments.argument]);
     super.initState();
@@ -328,6 +356,7 @@ class PageB extends StatelessWidget {
   }
 }
 
+/// Contains huge jump into Navigation2
 class PageC extends StatelessWidget {
   PageC({super.key});
 
@@ -393,6 +422,8 @@ class PageC extends StatelessWidget {
   }
 }
 
+/// Contains huge jump into Navigation2. Implement [Navigator.popUntil] with 
+/// containing data.
 class PageD extends StatelessWidget {
   PageD({super.key});
 
@@ -407,19 +438,6 @@ class PageD extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          Align(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(
-                  context,
-                  {
-                    Arguments.result: _inputController.text,
-                  },
-                );
-              },
-              child: const Text('Send back'),
-            ),
-          ),
           Align(
             child: ElevatedButton(
               onPressed: () {

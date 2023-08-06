@@ -39,8 +39,9 @@ class NavigationContent extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.all(16.0),
           children: [
+            // ignore: prefer_const_constructors
             Text('''
-This simple navigation simulation has Navigation (this page as root), Detail and Preview.
+This simple navigation simulation contains Navigation (this page as root), Detail and Preview.
 
 The routes will be:
 
@@ -51,14 +52,14 @@ The routes will be:
 4. Preview back to Detail
 5. Preivew back to Navigation
 
-The graph should look like:
+The graph will look like:
 
     [🏠]
-     |
-[Navigation]-[Detail]-[Preview]
-     |____________________|
+     ┊
+[Navigation]──[Detail]──[Preview]
+     └───────────────────┘
 
-This simulation, currently, has an animation issue. It just has been patched by setting up custom PageRouteBuilder for number (5), the others work fine fortunately.'''),
+'''),
             SizedBox(height: 16.0),
             Container(
               alignment: Alignment.center,
