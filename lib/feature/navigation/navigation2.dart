@@ -253,12 +253,11 @@ class _PageAState extends State<PageA> {
       appBar: AppBar(
         title: const Text('A'),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
+        children: [
+          Align(
+            child: ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(
                   context,
@@ -270,27 +269,31 @@ class _PageAState extends State<PageA> {
               },
               child: const Text('Send to B'),
             ),
-            ElevatedButton(
+          ),
+          Align(
+            child: ElevatedButton(
               onPressed: () => _cForResult(),
               child: const Text('Get result from C'),
             ),
-            ElevatedButton(
+          ),
+          Align(
+            child: ElevatedButton(
               onPressed: () => _dViaBForResult(),
               child: const Text('Expect result from D via B'),
             ),
-            TextField(
-              controller: _inputController,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.add),
-                hintText: 'Type something as argument!',
-              ),
+          ),
+          TextField(
+            controller: _inputController,
+            decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.add),
+              hintText: 'Type something as argument!',
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Result: $result'),
-            ),
-          ],
-        ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text('Result: $result'),
+          ),
+        ],
       ),
     );
   }
