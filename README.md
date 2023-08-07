@@ -26,3 +26,5 @@ Main Menu contains several features example, such as:
 |-|-|
 | **navigation** | A basic navigation in Flutter. New app will be opened! |
 | **navigation2** | A advanced navigation with handling various routes possibilities. A working deeplink to be expected as well. New app will be opened! |
+| **jsonplaceholder** | An example of data fetching with basic http package. In additiona, also display an example nested scroll |
+| **pexels** | Just like **jsonplaceholder**, but much more advanced with pagination. Add data manager aspect to get a better data parsing and request/response handler, especially a status code |
