@@ -19,11 +19,11 @@ class Navigation2App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: Styles.colorScheme2,
+        colorScheme: Styles.schemePurple,
         fontFamily: 'Roboto Mono',
         appBarTheme: AppBarTheme(
-          backgroundColor: Styles.colorScheme2.primary,
-          foregroundColor: Styles.colorScheme2.onPrimary,
+          backgroundColor: Styles.schemePurple.primary,
+          foregroundColor: Styles.schemePurple.onPrimary,
           titleTextStyle: Styles.titleTextStyle,
           elevation: 16.0,
         ),
@@ -90,7 +90,7 @@ class Navigation2Main extends StatelessWidget {
                 print('Go Back to Main Menu');
                 Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (context) => const MainApp(),
+                    builder: (context) => MainApp(),
                   ),
                   (route) => false,
                 );
@@ -173,11 +173,11 @@ class Navigation2Main extends StatelessWidget {
 /// This page contains result callback from two scenarios:
 /// 1. Get result from C: At C, you may input text in TextField then it will be
 /// passed down to A.
-/// 
+///
 /// 2. Expect result from D via B: At D (in the end), you may input text in
 /// TextField then it will be passed down to A. This scenario simulate when A
 /// needs data from other page further which is D. In this case, D will be
-/// located after B or even C. So, when jumped from D to A, make sure the data 
+/// located after B or even C. So, when jumped from D to A, make sure the data
 /// still exist.
 class PageA extends StatefulWidget {
   final Map<String, dynamic> args;
@@ -425,7 +425,7 @@ class PageC extends StatelessWidget {
   }
 }
 
-/// Contains huge jump into Navigation2. Implement [Navigator.popUntil] with 
+/// Contains huge jump into Navigation2. Implement [Navigator.popUntil] with
 /// containing data.
 class PageD extends StatelessWidget {
   PageD({super.key});

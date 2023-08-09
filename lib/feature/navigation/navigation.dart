@@ -10,11 +10,11 @@ class NavigationApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Navigation',
       theme: ThemeData(
-        colorScheme: Styles.colorScheme,
+        colorScheme: Styles.schemeDeepOrange,
         useMaterial3: true,
         appBarTheme: AppBarTheme(
-          backgroundColor: Styles.colorScheme.primary,
-          foregroundColor: Styles.colorScheme.onPrimary,
+          backgroundColor: Styles.schemeDeepOrange.primary,
+          foregroundColor: Styles.schemeDeepOrange.onPrimary,
           elevation: 16.0,
           titleTextStyle: Styles.titleTextStyle,
         ),
