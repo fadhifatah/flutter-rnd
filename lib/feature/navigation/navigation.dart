@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:research_and_development/feature/navigation/styles.dart';
 import 'package:url_launcher/link.dart';
-import '../../main.dart';
 
 class NavigationApp extends StatelessWidget {
   const NavigationApp({super.key});

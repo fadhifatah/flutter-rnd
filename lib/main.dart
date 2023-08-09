@@ -14,11 +14,9 @@ class MainApp extends StatelessWidget {
   MainApp({super.key});
 
   final _router = GoRouter(
-    
     routes: [
       GoRoute(
         path: '/',
-        name: '/',
         builder: (context, state) => const MainMenu(),
         routes: [
           /* GoRoute(
@@ -39,15 +37,33 @@ class MainApp extends StatelessWidget {
         ],
       ),
       GoRoute(
+        path: '/:path',
+        builder: (context, state) {
+          final argument = state.extra;
+          final pathParams = state.pathParameters;
+          final queryParams = state.uri.queryParameters;
+
+          if (pathParams['path'] == 'navigation') {
+            return const NavigationApp(); // don't try this; bad example!
+          } else if (pathParams['path'] == 'navigation2') {
+            return const Navigation2App(); // don't try this; bad example!
+          }
+
+          return PageNotFound(
+            argument: argument.toString(),
+            path: pathParams.toString(),
+            query: queryParams.toString(),
+          );
+        },
+      ),
+      /* GoRoute(
         path: '/navigation',
-        name: '/navigation',
         builder: (context, state) => const NavigationApp(),
       ),
       GoRoute(
         path: '/navigation2',
-        name: '/navigation2',
         builder: (context, state) => const Navigation2App(),
-      ),
+      ), */
     ],
   );
 
@@ -234,9 +250,16 @@ class PageNotFound extends StatelessWidget {
         margin: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            /* Link(
+              uri: Uri.parse('http://frnd.fadhifatah.dev/'),
+              builder: (context, followLink) => ElevatedButton(
+                onPressed: followLink,
+                child: const Icon(Icons.arrow_back),
+              ),
+            ), */
             ElevatedButton(
               onPressed: () {
-                GoRouter.of(context).pop();
+                context.go('/');
               },
               child: const Icon(Icons.arrow_back),
             ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:research_and_development/feature/navigation/routes.dart';
 import 'package:research_and_development/feature/navigation/styles.dart';
-import 'package:research_and_development/main.dart';
 import 'package:url_launcher/link.dart';
 
 /// This app is used to display Flutter navigation capabilities. There will be
