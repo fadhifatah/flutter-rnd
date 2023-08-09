@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:research_and_development/feature/navigation/styles.dart';
-import '../../main.dart';
+import 'package:url_launcher/link.dart';
 
 class NavigationApp extends StatelessWidget {
   const NavigationApp({super.key});
@@ -10,11 +10,11 @@ class NavigationApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Navigation',
       theme: ThemeData(
-        colorScheme: Styles.colorScheme,
+        colorScheme: Styles.schemeDeepOrange,
         useMaterial3: true,
         appBarTheme: AppBarTheme(
-          backgroundColor: Styles.colorScheme.primary,
-          foregroundColor: Styles.colorScheme.onPrimary,
+          backgroundColor: Styles.schemeDeepOrange.primary,
+          foregroundColor: Styles.schemeDeepOrange.onPrimary,
           elevation: 16.0,
           titleTextStyle: Styles.titleTextStyle,
         ),
@@ -63,7 +63,14 @@ The graph will look like:
             SizedBox(height: 16.0),
             Container(
               alignment: Alignment.center,
-              child: ElevatedButton(
+              child: Link(
+                uri: Uri.parse('http://frnd.fadhifatah.dev/'),
+                builder: (context, followLink) => ElevatedButton(
+                  onPressed: followLink,
+                  child: Icon(Icons.home),
+                ),
+              ),
+              /* child: ElevatedButton(
                 onPressed: () {
                   // Navigator.pop(context); // will close the app.
                   // Navigator.of(context/* , rootNavigator: true */).pop(
@@ -75,7 +82,7 @@ The graph will look like:
                   );
                 },
                 child: Icon(Icons.home),
-              ),
+              ), */
             ),
             SizedBox(height: 16.0),
             Container(

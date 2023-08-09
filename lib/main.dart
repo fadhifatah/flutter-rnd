@@ -1,46 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:research_and_development/feature/navigation/navigation.dart';
 import 'package:research_and_development/feature/navigation/navigation2.dart';
+import 'package:research_and_development/feature/navigation/styles.dart';
 import 'package:research_and_development/feature/networking/jsonplaceholder.dart';
 import 'package:research_and_development/feature/networking/pexels.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
 
-  /* Route? _onGenerateRoute(RouteSettings routeSettings) {
-    switch (routeSettings.name) {
-      case '/': // root
-        return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const MainMenu(),
-        );
-      /* case '/navigation':
-        return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const NavigationHome(),
-        ); */
-      default:
-        return null;
-    }
-  }
+  final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const MainMenu(),
+        routes: [
+          /* GoRoute(
+            path: ':path',
+            name: 'path',
+            builder: (context, state) {
+              final argumentString = state.extra.toString();
+              final pathParamsString = state.pathParameters.toString();
+              final queryParamsString = state.uri.queryParameters.toString();
 
-  Route _onUnknownRoute(RouteSettings routeSettings) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const PageNotFound(),
-    );
-  } */
+              return PageNotFound(
+                argument: argumentString,
+                path: pathParamsString,
+                query: queryParamsString,
+              );
+            },
+          ), */
+        ],
+      ),
+      GoRoute(
+        path: '/:path',
+        builder: (context, state) {
+          final argument = state.extra;
+          final pathParams = state.pathParameters;
+          final queryParams = state.uri.queryParameters;
+
+          if (pathParams['path'] == 'navigation') {
+            return const NavigationApp(); // don't try this; bad example!
+          } else if (pathParams['path'] == 'navigation2') {
+            return const Navigation2App(); // don't try this; bad example!
+          }
+
+          return PageNotFound(
+            argument: argument.toString(),
+            path: pathParams.toString(),
+            query: queryParams.toString(),
+          );
+        },
+      ),
+      /* GoRoute(
+        path: '/navigation',
+        builder: (context, state) => const NavigationApp(),
+      ),
+      GoRoute(
+        path: '/navigation2',
+        builder: (context, state) => const Navigation2App(),
+      ), */
+    ],
+  );
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ColorScheme.fromSeed(seedColor: Colors.teal);
+    final colorScheme = Styles.schemeTeal;
 
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Research and Development',
       darkTheme: ThemeData.dark(
         useMaterial3: true,
@@ -68,14 +100,10 @@ class MainApp extends StatelessWidget {
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
           elevation: 16.0,
-          titleTextStyle: TextStyle(
-            fontFamily: 'Fragment Mono',
-            fontSize: 22.0,
-            fontWeight: FontWeight.w400,
-          ),
+          titleTextStyle: Styles.titleTextStyle,
         ),
       ),
-      home: const MainMenu(),
+      routerConfig: _router,
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
     );
@@ -101,9 +129,10 @@ class MainMenu extends StatelessWidget {
             ),
           ],
         ),
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         children: [
           Wrap(
             spacing: 8.0,
@@ -112,13 +141,13 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: navigation');
-                  // Navigator.pushNamed(context, '/navigation');
-                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                  GoRouter.of(context).replace('/navigation');
+                  /* Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const NavigationApp(),
                     ),
                     (route) => false,
-                  );
+                  ); */
                 },
                 child: const Text(
                   'navigation',
@@ -128,12 +157,13 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: navigation2');
-                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                  GoRouter.of(context).replace('/navigation2');
+                  /* Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const Navigation2App(),
                     ),
                     (route) => false,
-                  );
+                  ); */
                 },
                 child: const Text(
                   'navigation2',
@@ -202,38 +232,82 @@ class MainMenu extends StatelessWidget {
 }
 
 class PageNotFound extends StatelessWidget {
-  const PageNotFound({super.key});
+  final String argument;
+  final String path;
+  final String query;
+
+  PageNotFound({
+    super.key,
+    required this.argument,
+    required this.path,
+    required this.query,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        alignment: Alignment.center,
-        color: Colors.deepOrange.shade50,
+        margin: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            /* Link(
+              uri: Uri.parse('http://frnd.fadhifatah.dev/'),
+              builder: (context, followLink) => ElevatedButton(
+                onPressed: followLink,
+                child: const Icon(Icons.arrow_back),
+              ),
+            ), */
+            ElevatedButton(
+              onPressed: () {
+                context.go('/');
+              },
+              child: const Icon(Icons.arrow_back),
+            ),
             const Text(
               'Page not found.',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.red,
                 fontSize: 48.0,
                 fontWeight: FontWeight.w500,
                 fontFamily: 'Fragment Mono',
               ),
             ),
             const SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: () {
-                /* Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/', (route) => false); */
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text('You are looking for:'),
+            ),
+            Table(
+              columnWidths: {
+                0: const IntrinsicColumnWidth(),
+                1: const IntrinsicColumnWidth(),
+                2: const FlexColumnWidth(),
               },
-              child: const Icon(
-                Icons.home,
-                color: Colors.deepOrangeAccent,
-              ),
-            )
+              defaultVerticalAlignment: TableCellVerticalAlignment.top,
+              children: [
+                TableRow(
+                  children: [
+                    const Text('argument'),
+                    const Text(': '),
+                    Text(argument),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const Text('path'),
+                    const Text(': '),
+                    Text(path),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const Text('query'),
+                    const Text(': '),
+                    Text(query),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ),

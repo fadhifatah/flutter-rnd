@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:research_and_development/feature/navigation/routes.dart';
 import 'package:research_and_development/feature/navigation/styles.dart';
-import 'package:research_and_development/main.dart';
+import 'package:url_launcher/link.dart';
 
 /// This app is used to display Flutter navigation capabilities. There will be
 /// five pages: Navigation2, A, B, C and D. Each navigation from/to will access
@@ -19,11 +19,11 @@ class Navigation2App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: Styles.colorScheme2,
+        colorScheme: Styles.schemePurple,
         fontFamily: 'Roboto Mono',
         appBarTheme: AppBarTheme(
-          backgroundColor: Styles.colorScheme2.primary,
-          foregroundColor: Styles.colorScheme2.onPrimary,
+          backgroundColor: Styles.schemePurple.primary,
+          foregroundColor: Styles.schemePurple.onPrimary,
           titleTextStyle: Styles.titleTextStyle,
           elevation: 16.0,
         ),
@@ -84,20 +84,30 @@ class Navigation2Main extends StatelessWidget {
         shrinkWrap: true,
         children: [
           Align(
+            child: Link(
+              uri: Uri.parse('https://frnd.fadhifatah.dev/'),
+              builder: (context, followLink) => IconButton(
+                onPressed: followLink,
+                icon: const Icon(Icons.home),
+              ),
+            ),
+          ),
+          /* Align(
             child: IconButton(
               onPressed: () {
                 // Back to Main Menu a.k.a start new Main Menu app
                 print('Go Back to Main Menu');
+                // context.go('/');
                 Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (context) => const MainApp(),
+                    builder: (context) => MainApp(),
                   ),
                   (route) => false,
                 );
               },
               icon: const Icon(Icons.home),
             ),
-          ),
+          ), */
           Align(
             child: ElevatedButton(
               onPressed: () {
@@ -173,11 +183,11 @@ class Navigation2Main extends StatelessWidget {
 /// This page contains result callback from two scenarios:
 /// 1. Get result from C: At C, you may input text in TextField then it will be
 /// passed down to A.
-/// 
+///
 /// 2. Expect result from D via B: At D (in the end), you may input text in
 /// TextField then it will be passed down to A. This scenario simulate when A
 /// needs data from other page further which is D. In this case, D will be
-/// located after B or even C. So, when jumped from D to A, make sure the data 
+/// located after B or even C. So, when jumped from D to A, make sure the data
 /// still exist.
 class PageA extends StatefulWidget {
   final Map<String, dynamic> args;
@@ -425,7 +435,7 @@ class PageC extends StatelessWidget {
   }
 }
 
-/// Contains huge jump into Navigation2. Implement [Navigator.popUntil] with 
+/// Contains huge jump into Navigation2. Implement [Navigator.popUntil] with
 /// containing data.
 class PageD extends StatelessWidget {
   PageD({super.key});
