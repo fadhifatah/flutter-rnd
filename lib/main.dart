@@ -14,6 +14,7 @@ class MainApp extends StatelessWidget {
   MainApp({super.key});
 
   final _router = GoRouter(
+    
     routes: [
       GoRoute(
         path: '/',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:research_and_development/feature/navigation/styles.dart';
+import 'package:url_launcher/link.dart';
 import '../../main.dart';
 
 class NavigationApp extends StatelessWidget {
@@ -63,7 +64,14 @@ The graph will look like:
             SizedBox(height: 16.0),
             Container(
               alignment: Alignment.center,
-              child: ElevatedButton(
+              child: Link(
+                uri: Uri.parse('http://frnd.fadhifatah.dev/'),
+                builder: (context, followLink) => ElevatedButton(
+                  onPressed: followLink,
+                  child: Icon(Icons.home),
+                ),
+              ),
+              /* child: ElevatedButton(
                 onPressed: () {
                   // Navigator.pop(context); // will close the app.
                   // Navigator.of(context/* , rootNavigator: true */).pop(
@@ -75,7 +83,7 @@ The graph will look like:
                   );
                 },
                 child: Icon(Icons.home),
-              ),
+              ), */
             ),
             SizedBox(height: 16.0),
             Container(

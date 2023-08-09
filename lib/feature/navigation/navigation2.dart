@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:research_and_development/feature/navigation/routes.dart';
 import 'package:research_and_development/feature/navigation/styles.dart';
 import 'package:research_and_development/main.dart';
+import 'package:url_launcher/link.dart';
 
 /// This app is used to display Flutter navigation capabilities. There will be
 /// five pages: Navigation2, A, B, C and D. Each navigation from/to will access
@@ -84,10 +86,20 @@ class Navigation2Main extends StatelessWidget {
         shrinkWrap: true,
         children: [
           Align(
+            child: Link(
+              uri: Uri.parse('https://frnd.fadhifatah.dev/'),
+              builder: (context, followLink) => IconButton(
+                onPressed: followLink,
+                icon: const Icon(Icons.home),
+              ),
+            ),
+          ),
+          /* Align(
             child: IconButton(
               onPressed: () {
                 // Back to Main Menu a.k.a start new Main Menu app
                 print('Go Back to Main Menu');
+                // context.go('/');
                 Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (context) => MainApp(),
@@ -97,7 +109,7 @@ class Navigation2Main extends StatelessWidget {
               },
               icon: const Icon(Icons.home),
             ),
-          ),
+          ), */
           Align(
             child: ElevatedButton(
               onPressed: () {
