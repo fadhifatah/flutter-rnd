@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 abstract class Styles {
-  static ColorScheme colorScheme =
+  static ColorScheme schemeTeal =
+      ColorScheme.fromSeed(seedColor: Colors.teal);
+
+  static ColorScheme schemeDeepOrange =
       ColorScheme.fromSeed(seedColor: Colors.deepOrange);
 
-  static ColorScheme colorScheme2 =
+  static ColorScheme schemePurple =
       ColorScheme.fromSeed(seedColor: Colors.purple);
 
   static TextStyle titleTextStyle = const TextStyle(
