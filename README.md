@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Main Menu
 
-Display all available Research and Development menu as a button in scrollable [Wrap](https://api.flutter.dev/flutter/widgets/Wrap-class.html)-ed widget. This app use custom fonts: `Fragment Mono` and `Roboto Mono`. All menus may changed at further development. It is deep link integrated with `go_router` by host: `frnd.fadhifatah.dev`, supported scheme: `http` and `https`. Contains route to other menu as well.
+Display all available Research and Development menu as a button in scrollable [Wrap](https://api.flutter.dev/flutter/widgets/Wrap-class.html)-ed widget. This app use custom fonts: `Fragment Mono` and `Roboto Mono`. All menus may changed at further development. It is deep link integrated by [`go_router`](https://pub.dev/packages/go_router) with a host: `frnd.fadhifatah.dev`, supported scheme: `http` and `https`. Contains route to other menu as well.
 
 <img src="assets/github/showcase.gif" width="360"/>
 
@@ -26,8 +26,8 @@ Main Menu contains several features example, such as:
 |-|-|
 | **navigation** | A basic navigation in Flutter. New app will be opened! [updated: access this menu with new url `/navigation`] |
 | **navigation2** | A advanced navigation with handling various routes possibilities. A working deeplink to be expected as well. New app will be opened! [updated: access this menu with new url `/navigation2`] |
-| **jsonplaceholder** | An example of data fetching with basic http package. In additiona, also display an example nested scroll |
-| **pexels** | Just like **jsonplaceholder**, but much more advanced with pagination. Add data manager aspect to get a better data parsing and request/response handler, especially a status code |
+| **jsonplaceholder** | An example of data fetching with basic http package, using [JSONPlaceholder](https://jsonplaceholder.typicode.com/). In addition, display an example of nested scroll too |
+| **pexels** | Just like **jsonplaceholder**, but much more advanced with implementation of pagination as the highlighted feature. A pagination package that is used in this example is [`infinite_scroll_pagination`](https://pub.dev/packages/infinite_scroll_pagination). This example use [Pexels](https://www.pexels.com/api/) to gather the required data. Also, add data manager aspect to get a better data parsing and request/response handler, especially a status code |
 
 ### [Update: 20230809]
 - Now deep link is implemented using go_router library.
