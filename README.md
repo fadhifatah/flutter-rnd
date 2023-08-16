@@ -15,13 +15,41 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## Design Pattern
+
+### MVVM x Clean Architecture
+
+The project tree (plan)
+```
+app ┐
+    ├ data ┐
+    │      ├ remote ┐
+    │      │        ├ api ┐
+    │      │        │     ├ api_service : *get, *post,
+    │      │        │     │
+    │      │        │     └ host : base_url, flavor
+    │      │        │
+    │      │        └ dto : *response, *request, *param
+    │      │
+    │      ├ local ┐
+    │      │       ├ db_service : *insert, *update, *delete, *query
+    │      │       │
+    │      │       └ shared_pref : app_pref, enc_pref
+    │      │
+    │      └ repository : *repository(api_service, db_service, *_pref)
+    │
+    ├ domain : *usecase(*repository)
+    │
+    └ feature : home, data_list, detail, login, create, form_page, etc.
+```
+
 ## Main Menu
 
 Display all available Research and Development menu as a button in scrollable [Wrap](https://api.flutter.dev/flutter/widgets/Wrap-class.html)-ed widget. This app use custom fonts: `Fragment Mono` and `Roboto Mono`. All menus may changed at further development. It is deep link integrated by [`go_router`](https://pub.dev/packages/go_router) with a host: `frnd.fadhifatah.dev`, supported scheme: `http` and `https`. Contains route to other menu as well.
 
 <img src="assets/github/showcase.gif" width="360"/>
 
-Main Menu contains several features example, such as:
+Main Menu contains several feature examples, such as:
 | Name | Description |
 |-|-|
 | **navigation** | A basic navigation in Flutter. New app will be opened! [updated: access this menu with new url `/navigation`] |
