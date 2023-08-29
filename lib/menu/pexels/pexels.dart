@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:research_and_development/feature/networking/model/photo.dart';
-import 'package:research_and_development/feature/networking/remote/repository.dart';
+import 'package:research_and_development/menu/pexels/photo.dart';
 
 /// Based on existed available REST API in Photos category from Pexels
 /// https://www.pexels.com/api/documentation/#photos
@@ -366,5 +369,80 @@ class PexelsDetail extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Future<void> getCuratedPexels(
+  int pageIndex,
+  int pageItemSize,
+  PagingController<int, Photo> pagingController,
+) async {
+  try {
+    print('getCuratedPexels page: $pageIndex');
+
+    final response = await http.get(
+      Uri.parse(
+          '${Config.pexelsUrl}curated?page=$pageIndex&per_page=$pageItemSize'),
+      headers: {
+        HttpHeaders.authorizationHeader: Config.pexelsKey,
+      },
+    );
+
+    final photoResponse = PhotoResponse.fromJson(jsonDecode(response.body));
+    final photoList = photoResponse.photos;
+    final isLastPage = photoList.length < photoResponse.perPage;
+
+    if (isLastPage) {
+      pagingController.appendLastPage(photoList);
+    } else {
+      pagingController.appendPage(photoList, pageIndex + 1);
+    }
+  } on Exception catch (error) {
+    pagingController.error = error;
+  } on Error {
+    pagingController.error = Exception('Error occured!');
+  }
+}
+
+abstract class Config {
+  static const String pexelsUrl = 'https://api.pexels.com/v1/';
+  static const String pexelsKey = '563492ad6f91700001000001aedde154c7864787839629108c07e874';
+}
+
+Future<void> getSearchPexels(
+  String query,
+  int pageIndex,
+  int pageItemSize,
+  PagingController<int, Photo> pagingController,
+) async {
+  try {
+    print('getSearchPexels query: $query page: $pageIndex');
+
+    final response = await http.get(
+      Uri.parse(
+          '${Config.pexelsUrl}search?query=$query&page=$pageIndex&per_page=$pageItemSize'),
+      headers: {
+        HttpHeaders.authorizationHeader: Config.pexelsKey,
+      },
+    );
+
+    print('getSearchPexels statusCode: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      final photoResponse = PhotoResponse.fromJson(jsonDecode(response.body));
+      final photoList = photoResponse.photos;
+      final isLastPage = photoList.length < photoResponse.perPage;
+
+      if (isLastPage) {
+        pagingController.appendLastPage(photoList);
+      } else {
+        pagingController.appendPage(photoList, pageIndex + 1);
+      }
+    } else if (response.statusCode == 400) {
+      pagingController.appendLastPage([]);
+    }
+  } on Exception catch (error) {
+    pagingController.error = error;
+  } on Error {
+    pagingController.error = Exception('Error occured!');
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:research_and_development/feature/navigation/routes.dart';
-import 'package:research_and_development/feature/navigation/styles.dart';
+import 'package:research_and_development/menu/navigation2/routes.dart';
+import 'package:research_and_development/support/styles.dart';
 import 'package:url_launcher/link.dart';
 
 /// This app is used to display Flutter navigation capabilities. There will be

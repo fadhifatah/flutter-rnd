@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:research_and_development/feature/navigation/navigation.dart';
-import 'package:research_and_development/feature/navigation/navigation2.dart';
-import 'package:research_and_development/feature/navigation/styles.dart';
-import 'package:research_and_development/feature/networking/jsonplaceholder.dart';
-import 'package:research_and_development/feature/networking/pexels.dart';
+import 'package:research_and_development/menu/navigation/navigation.dart';
+import 'package:research_and_development/menu/navigation2/navigation2.dart';
+import 'package:research_and_development/support/styles.dart';
+import 'package:research_and_development/menu/jsonplaceholder/jsonplaceholder.dart';
+import 'package:research_and_development/menu/pexels/pexels.dart';
 
 void main() {
   runApp(MainApp());
