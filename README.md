@@ -1,6 +1,6 @@
 # Research and Development
 
-A new Flutter project. This project is created to test, try and error, run and build any Flutter possibilities. This is also a good place to exercise what has been learnt and/or what will be developed before it published. Proper to experiment things. Much like cookbook, codelab and demo combined as one.
+A new Flutter project. This project is created to test, try and error, run and build any Flutter possibilities. This is also a good place to exercise what has been learnt and/or what will be developed before it published. A proper way to experiment things. Much like cookbook, codelab and demo combined as one.
 
 ## Getting Started
 
@@ -17,30 +17,53 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Design Pattern
 
-### MVVM x Clean Architecture
+### MVVM x Architecture
 
-The project tree (plan)
+#### Diagram
+
+In this section, I'll try to combine Modern App Arch. and Clean Arch. to be much simpler, in my opinion, both are using Inward Dependencies and Layered architecture, so any project structure that comply with them does.
+
+TL;DR
+- Entities from Clean Architecture will be used as Data Layer from Modern App Architecture. It has Data Source and Repository that contains Business Logic Rules, API Request, Local DB and/or Core Module.
+
+- Domain Layer will be filled with Use Case(s) for each Business Logic Implementations for every feature. This layer should be consumed in View Model (or any Presenters available). Each feature may contains UI State to determine what data should be presented to user and also its state whether it has error response, maintenance notification or any blocking prompt that user should notice.
+
+- UI Layer, it contains every page feature that communicate with View Model. Its only jobs is to present content. 
+
+##### Clean Architecture
+
+<img src="https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg"/>
+
+##### Modern App Architecture (from Android)
+
+<img src="https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview.png"/>
+
+#### The project tree (plan)
+
 ```
 app ┐
     ├ data ┐
     │      ├ remote ┐
     │      │        ├ api ┐
-    │      │        │     ├ api_service : *get, *post,
+    │      │        │     ├ api_service: *get, *post,
     │      │        │     │
-    │      │        │     └ host : base_url, flavor
+    │      │        │     └ host: base_url, flavors
     │      │        │
-    │      │        └ dto : *response, *request, *param
+    │      │        └ dto: *response, *request, *param
     │      │
     │      ├ local ┐
-    │      │       ├ db_service : *insert, *update, *delete, *query
+    │      │       ├ sql/room ┐ 
+    │      │       │          ├ db_service: *insert, *update, *delete, *query
+    │      │       │          │
+    │      │       │          └ table: *insert, *update, *delete, *query
     │      │       │
-    │      │       └ shared_pref : app_pref, enc_pref
+    │      │       └ shared_pref: app_pref, enc_pref
     │      │
     │      └ repository : *repository(api_service, db_service, *_pref)
     │
     ├ domain : *usecase(*repository)
     │
-    └ feature : home, data_list, detail, login, create, form_page, etc.
+    └ feature : (example: home, data_list, detail, login, create_account, form_page, etc.)
 ```
 
 ## Main Menu
@@ -62,3 +85,6 @@ Main Menu contains several feature examples, such as:
 - Go to Main Menu using `https://frnd.fadhifatah.dev/`
 - Go to **navigation** using `https://frnd.fadhifatah.dev/navigation`
 - Go to **navigation2** using `https://frnd.fadhifatah.dev/navigation2`
+
+### [Update 20230829]
+- Desing Pattern and Architecture structure plan
