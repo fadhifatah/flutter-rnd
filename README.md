@@ -87,4 +87,4 @@ Main Menu contains several feature examples, such as:
 - Go to **navigation2** using `https://frnd.fadhifatah.dev/navigation2`
 
 ### [Update 20230829]
-- Desing Pattern and Architecture structure plan
+- Design Pattern and Architecture structure plan
