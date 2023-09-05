@@ -30,6 +30,8 @@ TL;DR
 
 - UI Layer, it contains every page feature that communicate with View Model. Its only jobs is to present content. 
 
+In this branch, wel will develop with reference from https://devmuaz.medium.com/flutter-clean-architecture-series-part-1-d2d4c2e75c47
+
 ##### Clean Architecture
 
 <img src="https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg"/>

@@ -9,6 +9,19 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+# This file configures the analyzer to use the lint rule set from `package:lint`
+
+# include: package:lint/strict.yaml # For production apps
+# include: package:lint/casual.yaml # For code samples, hackathons and other non-production code
+# include: package:lint/package.yaml # Use this for packages with public API
+
+# You might want to exclude auto-generated files from dart analysis
+analyzer:
+  exclude:
+    - '**.freezed.dart'
+    - '**.g.dart'
+    - '**.gr.dart'
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
@@ -26,6 +39,7 @@ linter:
     avoid_empty_else: true
     prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
     prefer_const_constructors: true
+    prefer_const_declarations: true
     prefer_final_fields: false
     prefer_const_literals_to_create_immutables: false
     prefer_const_constructors_in_immutables: false
