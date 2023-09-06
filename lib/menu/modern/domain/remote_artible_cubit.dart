@@ -21,10 +21,16 @@ class RemoteArtibleCubit extends BaseCubit<RemoteArticleState> {
         final articles = response.data?.articles ?? [];
         final isLastPage = articles.length < Configuration.pageSizeDefault;
 
-        emit(RemoteArticleContent(articles: articles, isLastPage: isLastPage));
+        emit(RemoteArticleContent(
+          articles: articles,
+          isLastPage: isLastPage,
+          nextPage: page + 1,
+        ));
       } else {
         emit(RemoteArticleFailed(exception: response.exception));
       }
     });
   }
+
+  static const int firstPage = 1;
 }

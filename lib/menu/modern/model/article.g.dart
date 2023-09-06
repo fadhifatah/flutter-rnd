@@ -7,14 +7,18 @@ part of 'article.dart';
 // **************************************************************************
 
 Article _$ArticleFromJson(Map<String, dynamic> json) => Article(
-      source: Source.fromJson(json['source'] as Map<String, dynamic>),
-      author: json['author'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String,
-      url: json['url'] as String,
-      urlToImage: json['urlToImage'] as String,
-      publishedAt: DateTime.parse(json['publishedAt'] as String),
-      content: json['content'] as String,
+      source: json['source'] == null
+          ? null
+          : Source.fromJson(json['source'] as Map<String, dynamic>),
+      author: json['author'] as String?,
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      url: json['url'] as String?,
+      urlToImage: json['urlToImage'] as String?,
+      publishedAt: json['publishedAt'] == null
+          ? null
+          : DateTime.parse(json['publishedAt'] as String),
+      content: json['content'] as String?,
     );
 
 Map<String, dynamic> _$ArticleToJson(Article instance) => <String, dynamic>{
@@ -24,6 +28,6 @@ Map<String, dynamic> _$ArticleToJson(Article instance) => <String, dynamic>{
       'description': instance.description,
       'url': instance.url,
       'urlToImage': instance.urlToImage,
-      'publishedAt': instance.publishedAt.toIso8601String(),
+      'publishedAt': instance.publishedAt?.toIso8601String(),
       'content': instance.content,
     };

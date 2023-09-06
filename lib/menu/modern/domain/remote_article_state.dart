@@ -6,11 +6,13 @@ import '../model/article.dart';
 abstract class RemoteArticleState extends Equatable {
   final List<Article> articles;
   final bool isLastPage;
+  final int? nextPage;
   final DioException? exception;
 
   const RemoteArticleState({
     this.articles = const [],
     this.isLastPage = false,
+    this.nextPage,
     this.exception,
   });
 
@@ -23,7 +25,7 @@ class RemoteArticleLoading extends RemoteArticleState {
 }
 
 class RemoteArticleContent extends RemoteArticleState {
-  const RemoteArticleContent({super.articles, super.isLastPage});
+  const RemoteArticleContent({super.articles, super.isLastPage, super.nextPage});
 }
 
 class RemoteArticleFailed extends RemoteArticleState {

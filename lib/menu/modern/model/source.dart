@@ -6,9 +6,9 @@ part 'source.g.dart';
 @JsonSerializable()
 class Source extends Equatable {
   @JsonKey(name: 'id')
-  final String id;
+  final String? id;
   @JsonKey(name: 'name')
-  final String name;
+  final String? name;
 
   Source({
     required this.id,

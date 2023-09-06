@@ -7,11 +7,13 @@ import 'package:research_and_development/menu/navigation2/navigation2.dart';
 import 'package:research_and_development/menu/pexels/pexels.dart';
 import 'package:research_and_development/support/styles.dart';
 
+import 'menu/modern/modern.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized;
 
   await initializeDependencies();
-  
+
   runApp(MainApp());
 }
 
@@ -52,6 +54,8 @@ class MainApp extends StatelessWidget {
             return const NavigationApp(); // don't try this; bad example!
           } else if (pathParams['path'] == 'navigation2') {
             return const Navigation2App(); // don't try this; bad example!
+          } else if (pathParams['path'] == 'modern') {
+            return const ModernApp();
           }
 
           return PageNotFound(
@@ -206,6 +210,7 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: modern');
+                  GoRouter.of(context).replace('/modern');
                 },
                 child: const Text(
                   'modern',
