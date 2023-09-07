@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:research_and_development/menu/jsonplaceholder/jsonplaceholder.dart';
-import 'package:research_and_development/menu/modern/injection/locator.dart';
-import 'package:research_and_development/menu/navigation/navigation.dart';
-import 'package:research_and_development/menu/navigation2/navigation2.dart';
-import 'package:research_and_development/menu/pexels/pexels.dart';
-import 'package:research_and_development/support/styles.dart';
+import 'package:research_and_development/src/feature/jsonplaceholder/jsonplaceholder.dart';
+import 'package:research_and_development/src/injection/locator.dart';
+import 'package:research_and_development/src/feature/navigation/navigation.dart';
+import 'package:research_and_development/src/feature/navigation2/navigation2.dart';
+import 'package:research_and_development/src/feature/pexels/pexels.dart';
+import 'package:research_and_development/res/values/styles.dart';
 
-import 'menu/modern/modern.dart';
+import 'src/feature/modern/modern.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized;
