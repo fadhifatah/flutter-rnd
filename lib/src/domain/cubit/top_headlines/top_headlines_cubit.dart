@@ -1,13 +1,13 @@
 import '../../../../res/values/configs.dart';
 import '../../../data/data_state.dart';
 import '../../../data/remote/dto/request/top_headlines_request.dart';
-import '../../../data/repository/news_repository.dart';
+import '../../../data/repository/news_api_repository.dart';
 import '../../../model/news/article.dart';
 import '../base_cubit.dart';
 import 'top_headlines_state.dart';
 
 class TopHeadlinesCubit extends BaseCubit<TopHeadlinesState> {
-  final NewsRepository _apiRepository;
+  final NewsApiRepository _apiRepository;
 
   TopHeadlinesCubit(this._apiRepository) : super(const Loading());
 

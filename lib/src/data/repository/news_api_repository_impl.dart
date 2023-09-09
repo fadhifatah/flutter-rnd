@@ -3,12 +3,13 @@ import '../data_state.dart';
 import '../remote/dto/request/top_headlines_request.dart';
 import '../remote/dto/response/top_headlines_response.dart';
 import 'base_repository.dart';
-import 'news_repository.dart';
+import 'news_api_repository.dart';
 
-class NewsRepositoryImpl extends BaseRepository implements NewsRepository {
+class NewsApiRepositoryImpl extends BaseRepository
+    implements NewsApiRepository {
   final NewsApiService _apiService;
 
-  NewsRepositoryImpl(this._apiService);
+  NewsApiRepositoryImpl(this._apiService);
 
   @override
   Future<DataState<TopHeadlinesResponse>> fetchTopHeadlines({

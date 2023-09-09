@@ -61,7 +61,7 @@ class _$NewsDatabase extends NewsDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  TopHeadlinesDao? _topHeadlinesDaoInstance;
+  SavedHeadlinesDao? _topHeadlinesDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -85,7 +85,7 @@ class _$NewsDatabase extends NewsDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `TopHeadlinesEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `article` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `SavedHeadlinesEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `article` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -94,20 +94,29 @@ class _$NewsDatabase extends NewsDatabase {
   }
 
   @override
-  TopHeadlinesDao get topHeadlinesDao {
+  SavedHeadlinesDao get topHeadlinesDao {
     return _topHeadlinesDaoInstance ??=
-        _$TopHeadlinesDao(database, changeListener);
+        _$SavedHeadlinesDao(database, changeListener);
   }
 }
 
-class _$TopHeadlinesDao extends TopHeadlinesDao {
-  _$TopHeadlinesDao(
+class _$SavedHeadlinesDao extends SavedHeadlinesDao {
+  _$SavedHeadlinesDao(
     this.database,
     this.changeListener,
-  ) : _topHeadlinesEntityInsertionAdapter = InsertionAdapter(
+  )   : _queryAdapter = QueryAdapter(database),
+        _savedHeadlinesEntityInsertionAdapter = InsertionAdapter(
             database,
-            'TopHeadlinesEntity',
-            (TopHeadlinesEntity item) => <String, Object?>{
+            'SavedHeadlinesEntity',
+            (SavedHeadlinesEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'article': _articleConverter.encode(item.article)
+                }),
+        _savedHeadlinesEntityDeletionAdapter = DeletionAdapter(
+            database,
+            'SavedHeadlinesEntity',
+            ['id'],
+            (SavedHeadlinesEntity item) => <String, Object?>{
                   'id': item.id,
                   'article': _articleConverter.encode(item.article)
                 });
@@ -116,13 +125,37 @@ class _$TopHeadlinesDao extends TopHeadlinesDao {
 
   final StreamController<String> changeListener;
 
-  final InsertionAdapter<TopHeadlinesEntity>
-      _topHeadlinesEntityInsertionAdapter;
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<SavedHeadlinesEntity>
+      _savedHeadlinesEntityInsertionAdapter;
+
+  final DeletionAdapter<SavedHeadlinesEntity>
+      _savedHeadlinesEntityDeletionAdapter;
 
   @override
-  Future<void> insert(List<TopHeadlinesEntity> dataList) async {
-    await _topHeadlinesEntityInsertionAdapter.insertList(
-        dataList, OnConflictStrategy.replace);
+  Future<List<SavedHeadlinesEntity>> getList() async {
+    return _queryAdapter.queryList('SELECT * FROM TopHeadlinesEntity',
+        mapper: (Map<String, Object?> row) => SavedHeadlinesEntity(
+            id: row['id'] as int?,
+            article: _articleConverter.decode(row['article'] as String?)));
+  }
+
+  @override
+  Future<void> insertAll(List<SavedHeadlinesEntity> dataList) async {
+    await _savedHeadlinesEntityInsertionAdapter.insertList(
+        dataList, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> insert(SavedHeadlinesEntity data) async {
+    await _savedHeadlinesEntityInsertionAdapter.insert(
+        data, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> remove(SavedHeadlinesEntity data) async {
+    await _savedHeadlinesEntityDeletionAdapter.delete(data);
   }
 }
 
