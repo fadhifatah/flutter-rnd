@@ -10,7 +10,7 @@ abstract class SavedHeadlinesDao {
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insert(SavedHeadlinesEntity data);
 
-  @Query('SELECT * FROM TopHeadlinesEntity')
+  @Query('SELECT * FROM SavedHeadlinesEntity')
   Future<List<SavedHeadlinesEntity>> getList();
 
   @delete

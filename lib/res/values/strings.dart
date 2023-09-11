@@ -9,6 +9,9 @@ abstract class Strings {
   static const String labelTitleForm = 'Your title, please!';
   static const String labelThoughtForm = 'What\'s on your thought?';
   static const String getUserDataList = 'Get user data list!';
+  static const String save = 'Save';
+  static const String saved = 'Saved';
+  static const String delete = 'Delete';
   static String automateFetchAlbum(int? albumId) =>
       'Automate fetch album: $albumId';
   static const String pexels = 'Pexels';

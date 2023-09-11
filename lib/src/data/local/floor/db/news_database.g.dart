@@ -135,7 +135,7 @@ class _$SavedHeadlinesDao extends SavedHeadlinesDao {
 
   @override
   Future<List<SavedHeadlinesEntity>> getList() async {
-    return _queryAdapter.queryList('SELECT * FROM TopHeadlinesEntity',
+    return _queryAdapter.queryList('SELECT * FROM SavedHeadlinesEntity',
         mapper: (Map<String, Object?> row) => SavedHeadlinesEntity(
             id: row['id'] as int?,
             article: _articleConverter.decode(row['article'] as String?)));
