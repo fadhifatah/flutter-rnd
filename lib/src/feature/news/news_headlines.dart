@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:url_launcher/link.dart';
 
-import '../../../../res/values/configs.dart';
-import '../../../domain/cubit/top_headlines/top_headlines_cubit.dart';
-import '../../../domain/cubit/top_headlines/top_headlines_state.dart';
-import '../../../model/news/article.dart';
+import '../../../res/values/configs.dart';
+import '../../domain/cubit/top_headlines/top_headlines_cubit.dart';
+import '../../domain/cubit/top_headlines/top_headlines_state.dart';
+import '../../model/news/article.dart';
 
-class TopHeadlinesUi extends StatefulWidget {
-  const TopHeadlinesUi({super.key});
+class NewsHeadlines extends StatefulWidget {
+  const NewsHeadlines({super.key});
 
   @override
-  State<TopHeadlinesUi> createState() => _TopHeadlinesUiState();
+  State<NewsHeadlines> createState() => _NewsHeadlinesState();
 }
 
-class _TopHeadlinesUiState extends State<TopHeadlinesUi> {
+class _NewsHeadlinesState extends State<NewsHeadlines> {
   final _remoteArticleController =
       PagingController<int, Article>(firstPageKey: Configuration.firstPage);
 
@@ -62,9 +61,11 @@ class _TopHeadlinesUiState extends State<TopHeadlinesUi> {
       child: LayoutBuilder(
         builder: (context, constraints) => CustomScrollView(
           slivers: [
-            SliverAppBar(
-              title: const Text('Top Headlines'),
-              actions: [
+            const SliverAppBar(
+              automaticallyImplyLeading: true,
+              title: Text('Top Headlines'),
+              pinned: true,
+              /* actions: [
                 Link(
                   uri: Uri.parse('http://frnd.fadhifatah.dev/'),
                   builder: (context, followLink) => ElevatedButton(
@@ -72,7 +73,7 @@ class _TopHeadlinesUiState extends State<TopHeadlinesUi> {
                     child: const Icon(Icons.home),
                   ),
                 ),
-              ],
+              ], */
             ),
             SliverPadding(
               padding: const EdgeInsets.all(16.0),

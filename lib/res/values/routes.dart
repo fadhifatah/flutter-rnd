@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
+import 'package:research_and_development/src/feature/news/news_headlines.dart';
 import 'package:research_and_development/src/feature/navigation2/navigation2.dart';
 
 import '../../src/feature/main_menu/main_menu.dart';
-import '../../src/feature/modern/modern.dart';
 import '../../src/feature/navigation/navigation.dart';
 
 abstract class Routes {
@@ -27,9 +27,37 @@ abstract class Routes {
               );
             },
           ), */
+          GoRoute(
+            path: 'navigation',
+            builder: (context, state) => const Navigation(),
+          ),
+          GoRoute(
+            path: 'news',
+            builder: (context, state) => const NewsHeadlines(),
+          ),
         ],
       ),
-      GoRoute(
+      /* GoRoute(
+        path: '/navigation2',
+        builder: (context, state) {
+          final argument = state.extra;
+          final pathParams = state.pathParameters;
+          final queryParams = state.uri.queryParameters;
+
+          if (argument != null ||
+              pathParams.isNotEmpty ||
+              queryParams.isNotEmpty) {
+            return PageNotFound(
+              argument: argument.toString(),
+              path: pathParams.toString(),
+              query: queryParams.toString(),
+            );
+          } else {
+            return const Navigation2App(); // don't try this; bad example!
+          }
+        },
+      ), */
+      /* GoRoute(
         path: '/:path',
         builder: (context, state) {
           final argument = state.extra;
@@ -50,7 +78,7 @@ abstract class Routes {
             query: queryParams.toString(),
           );
         },
-      ),
+      ), */
       /* GoRoute(
         path: '/navigation',
         builder: (context, state) => const NavigationApp(),

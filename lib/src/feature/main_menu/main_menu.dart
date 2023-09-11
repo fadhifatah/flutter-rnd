@@ -51,7 +51,7 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: navigation2');
-                  GoRouter.of(context).replace('/navigation2');
+                  // GoRouter.of(context).replace('/navigation2');
                   /* Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const Navigation2App(),
@@ -67,6 +67,7 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: jsonplaceholder');
+                  // https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -81,6 +82,7 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: pexels');
+                  // https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -95,11 +97,11 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: modern');
-                  GoRouter.of(context).replace('/modern');
+                  GoRouter.of(context).push('/news');
                 },
                 child: const Text(
-                  'modern',
-                  semanticsLabel: 'modern',
+                  'news',
+                  semanticsLabel: 'news',
                 ),
               ),
               ElevatedButton(

@@ -3,31 +3,6 @@ import 'package:url_launcher/link.dart';
 
 import '../../../res/values/styles.dart';
 
-class NavigationApp extends StatelessWidget {
-  const NavigationApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Navigation',
-      theme: ThemeData(
-        colorScheme: Styles.schemeDeepOrange,
-        useMaterial3: true,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Styles.schemeDeepOrange.primary,
-          foregroundColor: Styles.schemeDeepOrange.onPrimary,
-          elevation: 16.0,
-          titleTextStyle: Styles.titleTextStyle,
-        ),
-        fontFamily: 'Roboto Mono',
-      ),
-      home: const Navigation(),
-      debugShowCheckedModeBanner: false,
-      debugShowMaterialGrid: false,
-    );
-  }
-}
-
 class Navigation extends StatelessWidget {
   const Navigation({super.key});
 
@@ -147,7 +122,7 @@ A simple navigation with action back at App Bar to Navigation page.''',
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => GoToPreview(),
+                        builder: (context) => const GoToPreview(),
                       ));
                 },
                 child: const Text('Go to Preview'),

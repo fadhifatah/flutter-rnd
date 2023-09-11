@@ -14,14 +14,14 @@ import '../data/repository/news_db_repository_impl.dart';
 final locator = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  /* final newsDatabase = await $FloorNewsDatabase
+  final newsDatabase = await $FloorNewsDatabase
       .databaseBuilder(Configuration.newsDatabaseName)
       .build();
 
   locator.registerSingleton<NewsDatabase>(newsDatabase);
 
   locator.registerSingleton<SavedHeadlinesDao>(
-      locator<NewsDatabase>().savedHeadlinesDao); */
+      locator<NewsDatabase>().savedHeadlinesDao);
 
   final dio = Dio();
   dio.options.headers['X-Api-Key'] = Configuration.newsApiKey;
@@ -35,6 +35,6 @@ Future<void> initializeDependencies() async {
   locator.registerSingleton<NewsApiRepository>(
       NewsApiRepositoryImpl(locator<NewsApiService>()));
 
-  /* locator.registerSingleton<NewsDbRepository>(
-      NewsDbRepositoryImpl(locator<SavedHeadlinesDao>())); */
+  locator.registerSingleton<NewsDbRepository>(
+      NewsDbRepositoryImpl(locator<SavedHeadlinesDao>()));
 }
