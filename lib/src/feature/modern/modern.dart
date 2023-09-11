@@ -21,11 +21,11 @@ class ModernApp extends StatelessWidget {
             locator<NewsApiRepository>(),
           ),
         ),
-        BlocProvider(
+        /* BlocProvider(
           create: (context) => SavedHeadlinesCubit(
             locator<NewsDbRepository>(),
           ),
-        )
+        ), */
       ],
       child: MaterialApp(
         title: 'Flutter Navigation',

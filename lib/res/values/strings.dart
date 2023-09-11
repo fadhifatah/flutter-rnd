@@ -1,4 +1,5 @@
 abstract class Strings {
+  static const String appName = 'Flutter R&D';
   static const String jsonPlaceholder = 'JSONPlaceholder';
   static const String postedExclamation = 'Posted!';
   static const String dismiss = 'Dismiss';

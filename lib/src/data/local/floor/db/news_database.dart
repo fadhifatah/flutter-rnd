@@ -12,5 +12,5 @@ part 'news_database.g.dart';
 @Database(version: 1, entities: [SavedHeadlinesEntity])
 @TypeConverters([SourceConverter, ArticleConverter])
 abstract class NewsDatabase extends FloorDatabase {
-  SavedHeadlinesDao get topHeadlinesDao;
+  SavedHeadlinesDao get savedHeadlinesDao;
 }

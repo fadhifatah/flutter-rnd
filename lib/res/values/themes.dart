@@ -7,12 +7,7 @@ abstract class Themes {
     return ThemeData(
       colorScheme: Styles.schemeBlue,
       fontFamily: 'Roboto Mono',
-      appBarTheme: AppBarTheme(
-        backgroundColor: Styles.schemeBlue.primary,
-        foregroundColor: Styles.schemeBlue.onPrimary,
-        titleTextStyle: Styles.titleTextStyle,
-        elevation: 16.0,
-      ),
+      appBarTheme: Styles.appBarThemeBlue,
     );
   }
 

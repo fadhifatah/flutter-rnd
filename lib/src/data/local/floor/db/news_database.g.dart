@@ -61,7 +61,7 @@ class _$NewsDatabase extends NewsDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  SavedHeadlinesDao? _topHeadlinesDaoInstance;
+  SavedHeadlinesDao? _savedHeadlinesDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -94,8 +94,8 @@ class _$NewsDatabase extends NewsDatabase {
   }
 
   @override
-  SavedHeadlinesDao get topHeadlinesDao {
-    return _topHeadlinesDaoInstance ??=
+  SavedHeadlinesDao get savedHeadlinesDao {
+    return _savedHeadlinesDaoInstance ??=
         _$SavedHeadlinesDao(database, changeListener);
   }
 }

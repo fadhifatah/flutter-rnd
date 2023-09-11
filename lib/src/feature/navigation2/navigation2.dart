@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:research_and_development/src/feature/navigation2/routes.dart';
-import 'package:research_and_development/res/values/styles.dart';
 import 'package:url_launcher/link.dart';
+
+import '../../../res/values/styles.dart';
 
 /// This app is used to display Flutter navigation capabilities. There will be
 /// five pages: Navigation2, A, B, C and D. Each navigation from/to will access
@@ -488,4 +488,19 @@ class PageD extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Supported routes that can only be handled in navigation2
+abstract class Routes {
+  static const String root = Navigator.defaultRouteName;
+  static const String pageA = 'page-a';
+  static const String pageB = 'page-b';
+  static const String pageC = 'page-c';
+  static const String pageD = 'page-d';
+}
+
+/// Extras to read any arguments passed
+abstract class Arguments {
+  static const String argument = 'argument';
+  static const String result = 'result';
 }

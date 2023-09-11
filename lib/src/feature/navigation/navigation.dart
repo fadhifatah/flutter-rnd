@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:research_and_development/res/values/styles.dart';
 import 'package:url_launcher/link.dart';
+
+import '../../../res/values/styles.dart';
 
 class NavigationApp extends StatelessWidget {
   const NavigationApp({super.key});
@@ -20,24 +21,28 @@ class NavigationApp extends StatelessWidget {
         ),
         fontFamily: 'Roboto Mono',
       ),
-      home: NavigationContent(),
+      home: const Navigation(),
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
     );
   }
 }
 
-class NavigationContent extends StatelessWidget {
+class Navigation extends StatelessWidget {
+  const Navigation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Navigation'),
+        title: const Text('Navigation'),
+        backgroundColor: Styles.schemeDeepOrange.primary,
+        foregroundColor: Styles.schemeDeepOrange.onPrimary,
         automaticallyImplyLeading: false,
       ),
       body: Center(
         child: ListView(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           children: [
             // ignore: prefer_const_constructors
             Text('''
@@ -60,14 +65,14 @@ The graph will look like:
      └───────────────────┘
 
 '''),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Container(
               alignment: Alignment.center,
               child: Link(
                 uri: Uri.parse('http://frnd.fadhifatah.dev/'),
                 builder: (context, followLink) => ElevatedButton(
                   onPressed: followLink,
-                  child: Icon(Icons.home),
+                  child: const Icon(Icons.home),
                 ),
               ),
               /* child: ElevatedButton(
@@ -84,7 +89,7 @@ The graph will look like:
                 child: Icon(Icons.home),
               ), */
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Container(
               alignment: Alignment.center,
               child: ElevatedButton(
@@ -92,10 +97,10 @@ The graph will look like:
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => GoToDetail(),
+                        builder: (context) => const GoToDetail(),
                       ));
                 },
-                child: Text('Go to Detail'),
+                child: const Text('Go to Detail'),
               ),
             ),
           ],
@@ -106,11 +111,15 @@ The graph will look like:
 }
 
 class GoToDetail extends StatelessWidget {
+  const GoToDetail({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail'),
+        title: const Text('Detail'),
+        backgroundColor: Styles.schemeDeepOrange.primary,
+        foregroundColor: Styles.schemeDeepOrange.onPrimary,
       ),
       body: Center(
         child: Padding(
@@ -119,20 +128,20 @@ class GoToDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 '''This is a detail page. Level 2.
 
 A simple navigation with action back at App Bar to Navigation page.''',
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Go Back'),
+                child: const Text('Go Back'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -141,7 +150,7 @@ A simple navigation with action back at App Bar to Navigation page.''',
                         builder: (context) => GoToPreview(),
                       ));
                 },
-                child: Text('Go to Preview'),
+                child: const Text('Go to Preview'),
               )
             ],
           ),
@@ -152,11 +161,15 @@ A simple navigation with action back at App Bar to Navigation page.''',
 }
 
 class GoToPreview extends StatelessWidget {
+  const GoToPreview({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Preview'),
+        title: const Text('Preview'),
+        backgroundColor: Styles.schemeDeepOrange.primary,
+        foregroundColor: Styles.schemeDeepOrange.onPrimary,
       ),
       body: Center(
         child: Padding(
@@ -165,20 +178,20 @@ class GoToPreview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 '''This is a preview page. Level 3.
 
 A simple navigation with action back at App Bar to Detail page.''',
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Go Back'),
+                child: const Text('Go Back'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   /* Navigator.pushAndRemoveUntil(
@@ -217,7 +230,7 @@ A simple navigation with action back at App Bar to Detail page.''',
                   //     (route) =>
                   //         route.settings.name == Navigator.defaultRouteName);
                 },
-                child: Text('Go Back to Navigation'),
+                child: const Text('Go Back to Navigation'),
               ),
             ],
           ),
