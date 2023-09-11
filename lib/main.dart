@@ -11,7 +11,7 @@ import 'src/domain/cubit/saved_headlines/saved_headlines_cubit.dart';
 import 'src/domain/cubit/top_headlines/top_headlines_cubit.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized;
+  WidgetsFlutterBinding.ensureInitialized();
 
   await initializeDependencies();
 
