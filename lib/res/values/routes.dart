@@ -37,7 +37,7 @@ abstract class Routes {
           ),
         ],
       ),
-      /* GoRoute(
+      GoRoute(
         path: '/navigation2',
         builder: (context, state) {
           final argument = state.extra;
@@ -56,7 +56,7 @@ abstract class Routes {
             return const Navigation2App(); // don't try this; bad example!
           }
         },
-      ), */
+      ),
       /* GoRoute(
         path: '/:path',
         builder: (context, state) {

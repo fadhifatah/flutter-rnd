@@ -51,7 +51,7 @@ class MainMenu extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   print('main_menu: navigation2');
-                  // GoRouter.of(context).replace('/navigation2');
+                  GoRouter.of(context).replace('/navigation2');
                   /* Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const Navigation2App(),
