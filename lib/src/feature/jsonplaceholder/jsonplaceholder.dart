@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:research_and_development/src/data/repository/jsonplaceholder_repository.dart';
+import 'package:flutter_rnd/src/data/repository/jsonplaceholder_repository.dart';
 
 import '../../../res/values/strings.dart';
 import '../../model/jsonplaceholder/album.dart';

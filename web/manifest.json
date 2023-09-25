@@ -1,6 +1,6 @@
 {
-    "name": "research_and_development",
-    "short_name": "research_and_development",
+    "name": "flutter_rnd",
+    "short_name": "flutter_rnd",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

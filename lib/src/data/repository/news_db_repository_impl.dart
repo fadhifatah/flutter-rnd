@@ -1,5 +1,5 @@
-import 'package:research_and_development/src/data/local/floor/entity/saved_headlines_entity.dart';
-import 'package:research_and_development/src/model/news/article.dart';
+import 'package:flutter_rnd/src/data/local/floor/entity/saved_headlines_entity.dart';
+import 'package:flutter_rnd/src/model/news/article.dart';
 
 import '../local/floor/dao/saved_headlines_dao.dart';
 import 'news_db_repository.dart';

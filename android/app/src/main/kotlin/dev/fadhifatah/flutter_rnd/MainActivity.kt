@@ -1,4 +1,4 @@
-package dev.fadhifatah.research_and_development
+package dev.fadhifatah.flutter_rnd
 
 import io.flutter.embedding.android.FlutterActivity
 

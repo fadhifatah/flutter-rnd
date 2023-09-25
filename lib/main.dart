@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:research_and_development/src/injection/locator.dart';
+import 'package:flutter_rnd/src/injection/locator.dart';
 
 import 'res/values/routes.dart';
 import 'res/values/strings.dart';
@@ -24,24 +24,24 @@ class MainApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
-    providers: [
-        BlocProvider(
-          create: (context) => TopHeadlinesCubit(
-            locator<NewsApiRepository>(),
+        providers: [
+          BlocProvider(
+            create: (context) => TopHeadlinesCubit(
+              locator<NewsApiRepository>(),
+            ),
           ),
-        ),
-        BlocProvider(
-          create: (context) => SavedHeadlinesCubit(
-            locator<NewsDbRepository>(),
+          BlocProvider(
+            create: (context) => SavedHeadlinesCubit(
+              locator<NewsDbRepository>(),
+            ),
           ),
-        ),
-    ],
-    child: MaterialApp.router(
+        ],
+        child: MaterialApp.router(
           title: Strings.appName,
           theme: Themes.mainDefault,
           routerConfig: Routes.routerConfig,
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
         ),
-  );
+      );
 }

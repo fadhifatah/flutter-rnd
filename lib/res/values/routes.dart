@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:research_and_development/src/feature/news/news_headlines.dart';
-import 'package:research_and_development/src/feature/navigation2/navigation2.dart';
+import 'package:flutter_rnd/src/feature/news/news_headlines.dart';
+import 'package:flutter_rnd/src/feature/navigation2/navigation2.dart';
 
 import '../../src/feature/main_menu/main_menu.dart';
 import '../../src/feature/navigation/navigation.dart';

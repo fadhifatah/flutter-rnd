@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:research_and_development/src/model/news/article.dart';
+import 'package:flutter_rnd/src/model/news/article.dart';
 
 import '../../../res/values/strings.dart';
 import '../../../res/values/styles.dart';
