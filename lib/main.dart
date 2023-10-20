@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rnd/src/injection/locator.dart';
 
 import 'res/values/routes.dart';
 import 'res/values/strings.dart';
@@ -9,6 +8,7 @@ import 'src/data/repository/news_api_repository.dart';
 import 'src/data/repository/news_db_repository.dart';
 import 'src/domain/cubit/saved_headlines/saved_headlines_cubit.dart';
 import 'src/domain/cubit/top_headlines/top_headlines_cubit.dart';
+import 'src/injection/locator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/link.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../res/values/styles.dart';
 
@@ -43,26 +43,28 @@ The graph will look like:
             const SizedBox(height: 16.0),
             Container(
               alignment: Alignment.center,
-              child: Link(
+              /* child: Link(
                 uri: Uri.parse('http://frnd.fadhifatah.dev/'),
                 builder: (context, followLink) => ElevatedButton(
                   onPressed: followLink,
                   child: const Icon(Icons.home),
                 ),
-              ),
-              /* child: ElevatedButton(
+              ), */
+              child: ElevatedButton(
                 onPressed: () {
                   // Navigator.pop(context); // will close the app.
                   // Navigator.of(context/* , rootNavigator: true */).pop(
                   //   MaterialPageRoute(builder: (context) => const MainMenu()),
                   // );
-                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => MainApp()),
-                    (route) => false,
-                  );
+                  // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                  //   MaterialPageRoute(builder: (context) => const MainMenu()),
+                  //   (route) => false,
+                  // );
+                  
+                  GoRouter.of(context).replace(Navigator.defaultRouteName);
                 },
-                child: Icon(Icons.home),
-              ), */
+                child: const Icon(Icons.home),
+              ),
             ),
             const SizedBox(height: 16.0),
             Container(

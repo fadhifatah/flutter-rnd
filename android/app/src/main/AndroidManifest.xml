@@ -34,7 +34,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:host="frnd.fadhifatah.dev"/>
+                <data android:host="rnd.fadhifatah.dev"/>
+                <data android:host="flutter.rnd.fadhifatah.dev"/>
                 <data android:scheme="http"/>
                 <data android:scheme="https" />
             </intent-filter>
