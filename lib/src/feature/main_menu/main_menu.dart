@@ -25,104 +25,102 @@ class MainMenu extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
       ),
-      body: ListView(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(8.0),
-        children: [
-          Wrap(
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  print('main_menu: navigation');
-                  GoRouter.of(context).replace('/navigation');
-                  /* Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+        child: Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                print('main_menu: navigation');
+                GoRouter.of(context).replace('/navigation');
+                /* Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const NavigationApp(),
                     ),
                     (route) => false,
                   ); */
-                },
-                child: const Text(
-                  'navigation',
-                  semanticsLabel: 'navigation',
-                ),
+              },
+              child: const Text(
+                'navigation',
+                semanticsLabel: 'navigation',
               ),
-              ElevatedButton(
-                onPressed: () {
-                  print('main_menu: navigation2');
-                  GoRouter.of(context).replace('/navigation2');
-                  /* Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print('main_menu: navigation2');
+                GoRouter.of(context).replace('/navigation2');
+                /* Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const Navigation2App(),
                     ),
                     (route) => false,
                   ); */
-                },
-                child: const Text(
-                  'navigation2',
-                  semanticsLabel: 'navigation two',
-                ),
+              },
+              child: const Text(
+                'navigation2',
+                semanticsLabel: 'navigation two',
               ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print('main_menu: jsonplaceholder');
+                // https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const JsonPlaceholder(),
+                    ));
+              },
+              child: const Text(
+                'jsonplaceholder',
+                semanticsLabel: 'json placeholder',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print('main_menu: pexels');
+                // https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Pexels(),
+                    ));
+              },
+              child: const Text(
+                'pexels',
+                semanticsLabel: 'pexels',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print('main_menu: modern');
+                GoRouter.of(context).push('/news');
+              },
+              child: const Text(
+                'news',
+                semanticsLabel: 'news',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print('main_menu: data_list');
+              },
+              child: const Text(
+                'data_list',
+                semanticsLabel: 'data list',
+              ),
+            ),
+            for (var idx = 0; idx < 21; idx++)
               ElevatedButton(
-                onPressed: () {
-                  print('main_menu: jsonplaceholder');
-                  // https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const JsonPlaceholder(),
-                      ));
-                },
-                child: const Text(
-                  'jsonplaceholder',
-                  semanticsLabel: 'json placeholder',
+                onPressed: () {},
+                child: Text(
+                  'feature #${idx + 1} tba!',
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  print('main_menu: pexels');
-                  // https://pub.dev/documentation/go_router/latest/topics/Navigation-topic.html
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Pexels(),
-                      ));
-                },
-                child: const Text(
-                  'pexels',
-                  semanticsLabel: 'pexels',
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  print('main_menu: modern');
-                  GoRouter.of(context).push('/news');
-                },
-                child: const Text(
-                  'news',
-                  semanticsLabel: 'news',
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  print('main_menu: data_list');
-                },
-                child: const Text(
-                  'data_list',
-                  semanticsLabel: 'data list',
-                ),
-              ),
-              for (var idx = 0; idx < 21; idx++)
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    'feature #${idx + 1} tba!',
-                  ),
-                ),
-            ],
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
